@@ -45,8 +45,9 @@ def sha(path, cancel=None):
 def workspace_lock(folder):
     folder.mkdir(parents=True, exist_ok=True)
     with (folder / '.pisco.lock').open('a+b') as stream:
-        stream.seek(0)
-        if not stream.read(1):
+        # Windows byte locks also deny reads by another handle. Inspect the
+        # file size without reading the byte before trying to acquire it.
+        if not os.fstat(stream.fileno()).st_size:
             stream.write(b'0'); stream.flush()
         stream.seek(0)
         try:
@@ -70,7 +71,7 @@ def workspace_lock(folder):
 
 def safe_member(name):
     path = PurePosixPath(name)
-    if not name or path.is_absolute() or '..' in path.parts or '\\' in name or ':' in name:
+    if not name or '\0' in name or path.is_absolute() or '..' in path.parts or '\\' in name or ':' in name:
         raise RuntimeError('Unsafe archive path: ' + name)
     return path
 
@@ -264,6 +265,9 @@ class Engine:
                 raise RuntimeError('Archive size differs from the release manifest.')
             names = set()
             for entry in entries:
+                # ZipInfo.filename normalizes OS separators and truncates at
+                # NUL. Validate the raw stored name consistently on every OS.
+                safe_member(entry.orig_filename)
                 safe_member(entry.filename)
                 key = entry.filename.casefold()
                 if key in names or (entry.external_attr >> 16) & 0o170000 == 0o120000:

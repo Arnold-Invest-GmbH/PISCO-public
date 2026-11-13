@@ -49,10 +49,10 @@ jobs:
             $env:PISCO_NETWORK_TEST = 'Windows outbound firewall rules for bundled runtime, launcher and figure tools'
             & $build.python -I -B -X utf8 portable/check_offline.py
             if ($LASTEXITCODE -ne 0) { throw 'Network isolation was not established.' }
-            & $build.python -I -B -X utf8 'portable/acceptance.py' --package $build.bundle --output '${{ runner.temp }}/acceptance' --with-archive
-            if ($LASTEXITCODE -ne 0) { throw 'Native package acceptance failed.' }
             & $build.python -I -B -X utf8 -m unittest discover -s portable -p 'test_*.py'
             if ($LASTEXITCODE -ne 0) { throw 'Launcher tests failed.' }
+            & $build.python -I -B -X utf8 'portable/acceptance.py' --package $build.bundle --output '${{ runner.temp }}/acceptance' --with-archive
+            if ($LASTEXITCODE -ne 0) { throw 'Native package acceptance failed.' }
           } finally {
             foreach ($name in $rules) { Remove-NetFirewallRule -DisplayName $name }
           }
@@ -62,8 +62,8 @@ jobs:
         run: |
           bundle='${{ runner.temp }}/PISCO-macos-arm64/PISCO.app/Contents/Resources'
           sandbox-exec -p '(version 1)(allow default)(deny network*)' "$bundle/runtime/bin/python3" -I -B -X utf8 portable/check_offline.py
-          sandbox-exec -p '(version 1)(allow default)(deny network*)' "$bundle/runtime/bin/python3" -I -B -X utf8 portable/acceptance.py --package "$bundle" --output '${{ runner.temp }}/acceptance' --with-archive
           "$bundle/runtime/bin/python3" -I -B -X utf8 -m unittest discover -s portable -p 'test_*.py'
+          sandbox-exec -p '(version 1)(allow default)(deny network*)' "$bundle/runtime/bin/python3" -I -B -X utf8 portable/acceptance.py --package "$bundle" --output '${{ runner.temp }}/acceptance' --with-archive
       - name: Seal and verify the actual ZIP delivery
         shell: bash
         env:

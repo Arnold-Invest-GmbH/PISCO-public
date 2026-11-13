@@ -33,7 +33,12 @@ class PortableTests(unittest.TestCase):
         names = names or {'documentation/artifact_manifest.json': '{}'}
         archive = self.bundle / 'results.zip'
         with zipfile.ZipFile(archive, 'w') as z:
-            for name, value in names.items(): z.writestr(name, value)
+            for name, value in names.items():
+                entry = zipfile.ZipInfo(name)
+                # Store the intended bytes even when Windows ZipInfo would
+                # normalize backslashes before the malformed ZIP is written.
+                entry.filename = name
+                z.writestr(entry, value)
         self.engine.manifest['results_archive'] = {'filename': 'results.zip', 'sha256': sha(archive),
                     'uncompressed_bytes': sum(len(v.encode()) for v in names.values())}
         return archive
@@ -88,7 +93,7 @@ class PortableTests(unittest.TestCase):
         self.assertFalse((self.engine.workspace / 'review').exists())
 
     def test_zip_escape_and_windows_drive_rejected(self):
-        for name in ('../escape', 'C:/escape', 'x\\escape'):
+        for name in ('../escape', 'C:/escape', 'x\\escape', 'valid\0hidden'):
             self.archive({name: '{}'})
             with self.assertRaisesRegex(RuntimeError, 'Unsafe archive path'): self.engine.archive()
         self.assertFalse((self.root / 'escape').exists())
