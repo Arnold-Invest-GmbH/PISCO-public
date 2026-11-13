@@ -32,7 +32,7 @@ def sha(path):
 
 
 def copy_source(out):
-    selected = [R2 / 'code' / n for n in ('solvers.py', 'reproduce_all.py', 'requirements.txt')]
+    selected = [R2 / 'code' / n for n in ('solvers.py', 'reproduce_all.py', 'requirements.txt', 'README.md')]
     selected += [p for d in ('code/tests', 'code/paper_support', 'portable', 'verification')
                  for p in (R2 / d).rglob('*') if p.is_file() and '__pycache__' not in p.parts]
     selected += [R2 / 'container/requirements.lock']
