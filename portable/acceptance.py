@@ -21,7 +21,8 @@ def main():
     parser.add_argument('--with-archive', action='store_true')
     args = parser.parse_args(); bundle = args.package.resolve(); output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=True)
-    exe = bundle / ('PISCO.exe' if os.name == 'nt' else 'PISCO')
+    manifest = json.loads((bundle / 'release.json').read_text())
+    exe = bundle / manifest.get('launcher_executable', 'PISCO.exe' if os.name == 'nt' else 'PISCO')
     records = []
     for label, options in [
         ('installation', ['--action', 'doctor']),
@@ -72,8 +73,9 @@ def main():
     env = engine.environment()
     for source in sorted((support / 'schemas').glob('*.typ')):
         pdf = figures / (source.stem + '.pdf'); stem = figures / source.stem
-        for command in ([str(bundle / 'tools/bin/typst'), 'compile', '--root', str(support), str(source), str(pdf)],
-                        [str(bundle / 'tools/bin/pdftoppm'), '-f', '1', '-singlefile', '-r', '72', '-png', str(pdf), str(stem)]):
+        extension = '.exe' if os.name == 'nt' else ''
+        for command in ([str(bundle / ('tools/bin/typst' + extension)), 'compile', '--root', str(support), str(source), str(pdf)],
+                        [str(bundle / ('tools/bin/pdftoppm' + extension)), '-f', '1', '-singlefile', '-r', '72', '-png', str(pdf), str(stem)]):
             result = subprocess.run(command, env=env, capture_output=True, text=True)
             figure_records.append({'command': command, 'exit_code': result.returncode, 'output': result.stdout + result.stderr})
             if result.returncode: raise RuntimeError('Figure tool failed: ' + result.stderr)

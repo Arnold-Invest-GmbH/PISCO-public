@@ -5,6 +5,34 @@ choose **Check paper results**. The saved results are included. See
 `START_HERE.html` and `VALIDATION.md` for actions and tested conditions.
 No Python installation or Docker is required for recipients.
 
+## Additional native platform builds
+
+`build_native.py` builds Windows x64 and macOS Apple Silicon packages on those
+operating systems. Every runtime, wheel, figure-tool and data download is pinned
+by SHA-256. The Windows package uses a native executable; macOS uses an `.app`.
+The scientific sources and current data are identical to the Linux edition.
+The additional figure renderer uses PDFium through `pypdfium2` for the exact
+command-line options needed by the frozen scientific driver.
+
+The manually dispatched `Native Windows and macOS packages` workflow builds on
+GitHub's target-OS runners, runs saved-data and real short-computation checks,
+compares four/twelve-worker results, checks the offscreen window, stop/continue,
+and all five figures, and verifies a freshly extracted ZIP. Publication requires
+both platform jobs to pass. A build script or runtime download alone is not a
+validated platform release. These distributions are unsigned; macOS builds are
+not Apple-notarized and can require normal operating-system user approval.
+
+Maintainer commands on the target OS:
+
+```text
+python portable/build_native.py --platform windows-x86_64 --output /new/PISCO-windows-x86_64 --cache /build/cache
+python portable/build_native.py --platform macos-arm64 --output /new/PISCO-macos-arm64 --cache /build/cache
+```
+
+Use only the command matching the build machine. macOS dependencies require
+macOS 14 or later and Apple Silicon. No Intel Mac or Windows ARM release is
+established by these builds. Linux build instructions follow below.
+
 ## Build from source
 
 Build on Linux x86-64 with Python, a C compiler, make, ar and readelf.

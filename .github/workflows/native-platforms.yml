@@ -1,0 +1,100 @@
+name: Native Windows and macOS packages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native:
+    name: Build and test ${{ matrix.platform }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: windows-x86_64
+            os: windows-2025
+            bootstrap: python
+          - platform: macos-arm64
+            os: macos-15
+            bootstrap: python3
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    env:
+      PISCO_CI_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Build the locked native package
+        shell: bash
+        run: >-
+          ${{ matrix.bootstrap }} portable/build_native.py --platform '${{ matrix.platform }}'
+          --output '${{ runner.temp }}/PISCO-${{ matrix.platform }}'
+          --cache '${{ runner.temp }}/build-cache'
+      - name: Windows offline acceptance
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $build = Get-Content '${{ runner.temp }}/build-${{ matrix.platform }}.json' | ConvertFrom-Json
+          $paths = @($build.python, $build.launcher, (Join-Path $build.bundle 'tools/bin/typst.exe'), (Join-Path $build.bundle 'tools/bin/pdftoppm.exe'))
+          $rules = @()
+          try {
+            for ($i = 0; $i -lt $paths.Count; $i++) {
+              $name = "PISCO-offline-$i"
+              New-NetFirewallRule -DisplayName $name -Direction Outbound -Action Block -Program $paths[$i] -Profile Any | Out-Null
+              $rules += $name
+            }
+            $env:PISCO_NETWORK_TEST = 'Windows outbound firewall rules for bundled runtime, launcher and figure tools'
+            & $build.python -I -B -X utf8 portable/check_offline.py
+            if ($LASTEXITCODE -ne 0) { throw 'Network isolation was not established.' }
+            & $build.python -I -B -X utf8 'portable/acceptance.py' --package $build.bundle --output '${{ runner.temp }}/acceptance' --with-archive
+            if ($LASTEXITCODE -ne 0) { throw 'Native package acceptance failed.' }
+            & $build.python -I -B -X utf8 -m unittest discover -s portable -p 'test_*.py'
+            if ($LASTEXITCODE -ne 0) { throw 'Launcher tests failed.' }
+          } finally {
+            foreach ($name in $rules) { Remove-NetFirewallRule -DisplayName $name }
+          }
+      - name: macOS offline acceptance
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          bundle='${{ runner.temp }}/PISCO-macos-arm64/PISCO.app/Contents/Resources'
+          sandbox-exec -p '(version 1)(allow default)(deny network*)' "$bundle/runtime/bin/python3" -I -B -X utf8 portable/check_offline.py
+          sandbox-exec -p '(version 1)(allow default)(deny network*)' "$bundle/runtime/bin/python3" -I -B -X utf8 portable/acceptance.py --package "$bundle" --output '${{ runner.temp }}/acceptance' --with-archive
+          "$bundle/runtime/bin/python3" -I -B -X utf8 -m unittest discover -s portable -p 'test_*.py'
+      - name: Seal and verify the actual ZIP delivery
+        shell: bash
+        env:
+          PISCO_NETWORK_TEST: ${{ runner.os == 'Windows' && 'Windows outbound firewall rules for runtime and figure tools during acceptance' || 'macOS sandbox-exec denies network during acceptance' }}
+        run: >-
+          ${{ matrix.bootstrap }} portable/finish_native.py
+          --build '${{ runner.temp }}/build-${{ matrix.platform }}.json'
+          --acceptance '${{ runner.temp }}/acceptance'
+          --output '${{ runner.temp }}/delivery'
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: PISCO-${{ matrix.platform }}
+          path: ${{ runner.temp }}/delivery/*
+          compression-level: 0
+          retention-days: 5
+          if-no-files-found: error
+
+  publish:
+    name: Publish accepted native packages
+    needs: native
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          pattern: PISCO-*
+          path: delivery
+          merge-multiple: true
+      - name: Publish the tested artifacts
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload r2-2026-11-13 --repo '${{ github.repository }}' delivery/* --clobber

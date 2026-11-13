@@ -37,7 +37,7 @@ def copy_source(out):
                  for p in (R2 / d).rglob('*') if p.is_file() and '__pycache__' not in p.parts]
     selected += [R2 / 'container/requirements.lock']
     allowed = set(json.loads((HERE / 'public-source-files.json').read_text()))
-    actual = {str(p.relative_to(R2)) for p in selected}
+    actual = {p.relative_to(R2).as_posix() for p in selected}
     if actual != allowed:
         raise RuntimeError('Public source allowlist differs: ' + str(sorted(actual ^ allowed)))
     for p in selected:

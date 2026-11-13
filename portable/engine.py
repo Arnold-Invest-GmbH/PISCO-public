@@ -119,9 +119,15 @@ class Engine:
         env.update(PYTHONDONTWRITEBYTECODE='1', PYTHONUNBUFFERED='1',
                    MPLCONFIGDIR=str(cache / 'matplotlib'),
                    XDG_CACHE_HOME=str(cache),
+                   TYPST_PACKAGE_CACHE_PATH=str(cache / 'typst/packages'),
+                   TYPST_FONT_PATHS=str(self.bundle / 'tools/fonts'),
                    FONTCONFIG_FILE=str(self.bundle / 'tools/fonts.conf'),
                    OMP_NUM_THREADS='1', OPENBLAS_NUM_THREADS='1', MKL_NUM_THREADS='1',
+                   VECLIB_MAXIMUM_THREADS='1', BLIS_NUM_THREADS='1',
                    PATH=str(self.bundle / 'tools/bin') + os.pathsep + os.defpath)
+        if os.name == 'nt':
+            system = Path(os.environ.get('SystemRoot', r'C:\Windows'))
+            env['PATH'] = os.pathsep.join(map(str, (self.bundle / 'tools/bin', system / 'System32', system)))
         return env
 
     def command(self, name, args):
@@ -130,11 +136,11 @@ class Engine:
         tag = name + '-' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ') + '-' + str(time.monotonic_ns())
         log = logs / (tag + '.txt')
         stop_file = logs / (tag + '.stop')
-        command = [str(self.python), '-I', '-B', '-u', str(self.bundle / 'app/child.py'),
+        command = [str(self.python), '-I', '-B', '-X', 'utf8', '-u', str(self.bundle / 'app/child.py'),
                    '--stop-file', str(stop_file), *map(str, args)]
         self.output('Log: ' + str(log))
         started = time.monotonic()
-        flags = {'creationflags': subprocess.CREATE_NEW_PROCESS_GROUP} if os.name == 'nt' else {'start_new_session': True}
+        flags = {'creationflags': subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.CREATE_NO_WINDOW} if os.name == 'nt' else {'start_new_session': True}
         lines = queue.Queue()
         stopping = None
         with log.open('w', encoding='utf-8') as transcript:

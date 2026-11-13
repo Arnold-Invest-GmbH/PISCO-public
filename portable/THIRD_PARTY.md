@@ -29,3 +29,11 @@ and Python desktop code are under `source/portable/`.
 `validation/native-root-provenance.json` identifies the exact native-library
 build inputs. Hashes identify files and detect accidental changes; they are
 not a publisher signature. No publisher signature is claimed for this local build.
+
+Windows/macOS builds use PDFium through pypdfium2 5.15.2 instead of Poppler for
+figure rasterisation. Upstream: https://github.com/pypdfium2-team/pypdfium2 .
+The wheel includes PDFium and its licence notices. Exact wheel hashes are in
+`portable/packages-windows-x86_64.lock` and `portable/packages-macos-arm64.lock`.
+Windows builds also include the Visual C++ runtime DLLs distributed with the
+build runner's Microsoft compiler redistributable files. The project's own
+launchers are linked with the static C runtime.
