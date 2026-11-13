@@ -77,11 +77,12 @@ def windows_environment():
     # subprocess.list2cmdline. Pass the command line intact to CreateProcess.
     command = f'cmd.exe /d /s /c "call "{devcmd}" -arch=x64 -host_arch=x64 >nul && set"'
     output = subprocess.check_output(command, text=True, errors='replace')
-    env = dict(os.environ)
+    # Windows names are case-insensitive; avoid duplicate PATH/Path entries.
+    env = {key.upper(): value for key, value in os.environ.items()}
     for line in output.splitlines():
         if '=' in line and not line.startswith('='):
             key, value = line.split('=', 1)
-            env[key] = value
+            env[key.upper()] = value
     return env
 
 
@@ -110,6 +111,11 @@ def main():
     if out.exists() and any(out.iterdir()):
         p.error('The output directory must be new or empty.')
     out.mkdir(parents=True, exist_ok=True); cache.mkdir(parents=True, exist_ok=True)
+    compiler_env = windows_environment() if windows else dict(os.environ)
+    if windows:
+        compiler = Path(compiler_env['VCTOOLSINSTALLDIR']) / 'bin/Hostx64/x64/cl.exe'
+        if not compiler.is_file():
+            raise RuntimeError('The selected Visual C++ compiler was not found.')
     bundle = out if windows else out / 'PISCO.app/Contents/Resources'
     bundle.mkdir(parents=True, exist_ok=True)
     key = 'x86_64-pc-windows-msvc' if windows else 'aarch64-apple-darwin'
@@ -145,10 +151,10 @@ def main():
     shutil.copy2(found[0], bundle / 'tools/bin' / executable)
     launcher = bundle / 'PISCO.exe' if windows else out / 'PISCO.app/Contents/MacOS/PISCO'
     launcher.parent.mkdir(parents=True, exist_ok=True)
-    compiler_env = windows_environment() if windows else dict(os.environ)
     for target, rasterizer in [(launcher, False), (bundle / ('tools/bin/pdftoppm.exe' if windows else 'tools/bin/pdftoppm'), True)]:
         if windows:
-            options = ['cl.exe', '/nologo', '/O2', '/MT', '/utf-8', str(HERE / 'desktop_launcher.c'),
+            # CreateProcess does not use the child env PATH to locate argv[0].
+            options = [str(compiler), '/nologo', '/O2', '/MT', '/utf-8', str(HERE / 'desktop_launcher.c'),
                        '/Fe:' + str(target), '/Fo:' + str(cache / (target.stem + '.obj'))]
             if rasterizer: options.append('/DPISCO_RASTERIZER')
             options += ['/link', '/SUBSYSTEM:WINDOWS', 'user32.lib']
@@ -158,7 +164,7 @@ def main():
             if rasterizer: options.append('-DPISCO_RASTERIZER')
         subprocess.run(options, env=compiler_env, check=True)
     if windows:
-        redist = Path(compiler_env['VCToolsRedistDir'])
+        redist = Path(compiler_env['VCTOOLSREDISTDIR'])
         for directory in redist.glob('x64/Microsoft.VC*.CRT'):
             for dll in directory.glob('*.dll'):
                 shutil.copy2(dll, bundle / 'runtime' / dll.name)
