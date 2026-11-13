@@ -1,0 +1,58 @@
+{
+  "release_id": "r2-2026-11-13",
+  "source_sha256": {
+    "solvers.py": "cdd701f69e8ec906b55b9a2c6a209926bd5da894971d39abfe6147beea5b4290",
+    "reproduce_all.py": "cecf8c2401c822e8530de39822bd19cb6d53331aaffcac42cd52c73bd656de52"
+  },
+  "common_results": {
+    "filename": "PISCO-results.zip",
+    "sha256": "1cf03ae1254e7a489b2c9da44f3ac5bf23ae49db63b6bcc36811d0718d158775",
+    "bytes": 264840553,
+    "uncompressed_bytes": 930016278,
+    "file_count": 4249,
+    "archive_member_filename": "results.zip",
+    "url": "https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-13/PISCO-results.zip"
+  },
+  "applications": [
+    {
+      "platform": "windows-x86_64",
+      "filename": "PISCO-windows-x86_64.zip",
+      "bytes": 640545723,
+      "sha256": "2da4c3f4c056b152cb05c2b3332bad0aef5bd3ea13ea2a4a785b7a3e27101be7",
+      "url": "https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-13/PISCO-windows-x86_64.zip",
+      "build_commit": "bd8b94ca3e0581440d8cb0c05ce25f327814a1b7",
+      "validation_report": "validation/windows-x86_64.json",
+      "receipt_url": "https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-13/release-windows-x86_64.json"
+    },
+    {
+      "platform": "macos-arm64",
+      "filename": "PISCO-macos-arm64.zip",
+      "bytes": 681916427,
+      "sha256": "04b4cd1b1019bd91afaaea74158f84788eb5b6a005893e82ec66f09b048fecda",
+      "url": "https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-13/PISCO-macos-arm64.zip",
+      "build_commit": "bd8b94ca3e0581440d8cb0c05ce25f327814a1b7",
+      "validation_report": "validation/macos-arm64.json",
+      "receipt_url": "https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-13/release-macos-arm64.json"
+    },
+    {
+      "platform": "linux-x86_64",
+      "filename": "PISCO-linux-x86_64.zip",
+      "bytes": 790952477,
+      "sha256": "02a9fedfc9f2de4d214281a818dc9530dea1062dc361315513ed3fa1d0b59b18",
+      "url": "https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-13/PISCO-linux-x86_64.zip",
+      "manifest": "release.json",
+      "validation_report": "validation/summary.json"
+    }
+  ],
+  "scope": {
+    "windows-x86_64": "Tested on hosted Windows Server 2025 x64.",
+    "macos-arm64": "Apple Silicon, macOS 14 or later; tested on hosted macOS 15.",
+    "linux-x86_64": "glibc 2.36 or later and X11/XWayland; tested on the author AMD laptop and isolated Debian 12 userland."
+  },
+  "limits": [
+    "No full experiment matrix rerun in the bundled runtimes.",
+    "No cross-platform bitwise equality guarantee.",
+    "Unsigned applications; macOS application is not Apple-notarized.",
+    "Intel Macs and Windows ARM are not covered."
+  ]
+}

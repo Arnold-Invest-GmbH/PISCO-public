@@ -8,14 +8,16 @@ and Python desktop code are under `portable/`.
   SHA-256 in `release.json` and `portable/runtimes.lock.json`. The runtime
   includes its own licence notices. Project: https://github.com/astral-sh/python-build-standalone
 - **Numerical Python packages**: hash-locked CPU wheel requirements in
-  `container/requirements.lock`; actual versions in `python-packages.txt`.
-  Package licences/notices are retained under `runtime/lib/python3.14/site-packages/`.
+  `container/requirements.lock` for Linux and `portable/packages-*.lock` for
+  Windows/macOS. Each package records actual versions in `python-packages.txt`.
+  Licence notices remain in its runtime site-packages directory
+  (`Lib/site-packages` on Windows).
 - **Qt for Python / PySide6 Essentials and Shiboken 6.12.0**: hashes in
-  `portable/gui-linux.lock`. LGPLv3 and GPLv3 texts are under
+  `portable/gui-linux.lock` or the Windows/macOS package lock. LGPLv3 and GPLv3 texts are under
   `portable/third_party/`. The Qt libraries remain separate dynamically
   loaded files. Corresponding upstream source: https://code.qt.io/cgit/pyside/pyside-setup.git/?h=v6.12.0
   and https://download.qt.io/archive/qt/6.12/
-- **Poppler, supporting native libraries and fonts**: Debian licence/copyright
+- **Linux Poppler/supporting libraries and shared fonts**: Debian licence/copyright
   notices in `tools/licenses/`, precise copied-library hashes in
   `tools/native-libraries.json`. Debian source packages are identified by those
   notices and the recorded package versions; archive: https://snapshot.debian.org/
@@ -23,7 +25,7 @@ and Python desktop code are under `portable/`.
   https://github.com/typst/typst/tree/v0.15.1 ; included licence under
   `portable/third_party/Typst-LICENSE.txt`. CeTZ and oxifmt source and
   licence files are retained in `tools/cache/typst/packages/preview/`.
-- **musl 1.2.5**: static launcher runtime; licence in `tools/licenses/musl.txt`,
+- **musl 1.2.5 (Linux)**: static launcher runtime; licence in `tools/licenses/musl.txt`,
   exact source URL/hash in `release.json`. Build recipe: `portable/build_toolchain.py`.
 
 `portable/native-inputs.lock.json` identifies the native build-input archive.

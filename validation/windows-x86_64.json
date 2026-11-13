@@ -1,0 +1,53 @@
+{
+  "filename": "PISCO-windows-x86_64.zip",
+  "bytes": 640545723,
+  "sha256": "2da4c3f4c056b152cb05c2b3332bad0aef5bd3ea13ea2a4a785b7a3e27101be7",
+  "platform": "windows-x86_64",
+  "source_sha256": {
+    "solvers.py": "cdd701f69e8ec906b55b9a2c6a209926bd5da894971d39abfe6147beea5b4290",
+    "reproduce_all.py": "cecf8c2401c822e8530de39822bd19cb6d53331aaffcac42cd52c73bd656de52"
+  },
+  "results_sha256": "1cf03ae1254e7a489b2c9da44f3ac5bf23ae49db63b6bcc36811d0718d158775",
+  "build_commit": "bd8b94ca3e0581440d8cb0c05ce25f327814a1b7",
+  "zip_crc_passed": true,
+  "extracted_zip_verification_passed": true,
+  "validation": {
+    "passed": true,
+    "platform": "windows-x86_64",
+    "host": "Windows-2025Server-10.0.26100-SP0",
+    "machine": "AMD64",
+    "build_commit": "bd8b94ca3e0581440d8cb0c05ce25f327814a1b7",
+    "source_sha256": {
+      "solvers.py": "cdd701f69e8ec906b55b9a2c6a209926bd5da894971d39abfe6147beea5b4290",
+      "reproduce_all.py": "cecf8c2401c822e8530de39822bd19cb6d53331aaffcac42cd52c73bd656de52"
+    },
+    "ci_run_url": "https://github.com/Arnold-Invest-GmbH/PISCO-public/actions/runs/43427817370",
+    "saved_data": {
+      "result_rows": 526,
+      "artifact_count": 4248,
+      "current_numeric_summaries": 92,
+      "statistical_contrasts": 40
+    },
+    "saved_data_checks": 14537,
+    "short_runs": {
+      "workers": [
+        4,
+        12
+      ],
+      "rows_each": 16,
+      "selected_numerical_fields_exact": true,
+      "timing_equality_claimed": false
+    },
+    "offscreen_gui_passed": true,
+    "native_gui_passed": true,
+    "stop_and_continue_passed": true,
+    "figure_templates_passed": 5,
+    "network_restriction": "Windows outbound firewall rules for runtime and figure tools during acceptance",
+    "limits": [
+      "Automated tests on this hosted operating system, not every end-user computer.",
+      "No full experiment matrix recomputed.",
+      "No cross-platform bitwise equality claim.",
+      "Unsigned distribution; macOS application is not Apple-notarized."
+    ]
+  }
+}

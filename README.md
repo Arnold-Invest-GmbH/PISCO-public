@@ -2,35 +2,57 @@
 
 The repository contains the current manuscript, numerical source, dependency
 locks, desktop interface and verification tools. The current dataset is supplied
-with the downloadable application.
+with every downloadable application and separately as
+[PISCO-results.zip](https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-13/PISCO-results.zip).
 
 ## Start
 
-1. Download [PISCO-linux-x86_64.zip](https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-13/PISCO-linux-x86_64.zip) from the [release](https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/tag/r2-2026-11-13).
-2. Extract the ZIP and open **PISCO** inside the extracted directory.
+1. Download the ZIP matching your computer from the [release](https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/tag/r2-2026-11-13):
+
+   | System | Download | Open after extraction |
+   | --- | --- | --- |
+   | Windows x64 | [PISCO-windows-x86_64.zip](https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-13/PISCO-windows-x86_64.zip) | `PISCO.exe` |
+   | macOS 14+, Apple Silicon | [PISCO-macos-arm64.zip](https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-13/PISCO-macos-arm64.zip) | `PISCO.app` |
+   | Linux x86-64, glibc 2.36+, X11/XWayland | [PISCO-linux-x86_64.zip](https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-13/PISCO-linux-x86_64.zip) | `PISCO` |
+
+2. Extract the complete ZIP and open the program listed above.
 3. Choose an output folder and select **Check paper results**.
 
-The ZIP includes the saved data, Python runtime, numerical libraries and figure
-tools. Normal use requires no Python installation, Docker, GPU or internet.
-It targets **Linux x86-64, glibc 2.36 or later**, with X11/XWayland for the window.
-Use a filesystem that permits execution. The release is unsigned; SHA-256
-checksums identify the supplied files. See `portable/VALIDATION.md` for the
-actual tests and limits. Other operating systems have not been validated.
+Every application ZIP includes the same saved data, its own Python runtime,
+numerical libraries and figure tools. Normal use requires no Python installation,
+Docker, GPU or internet. Use a filesystem that permits execution. The downloads
+are unsigned; macOS applications are not Apple-notarized. Your system may ask
+for approval before opening a downloaded program. Use normal operating-system
+approval after checking the published checksum; do not disable system protection.
+
+Windows and macOS packages passed automated tests on their respective operating
+systems; Linux was tested locally and in isolated Debian 12 userland.
+See [validation](portable/VALIDATION.md), [platforms](portable/BUILD_MATRIX.md)
+and the release's per-platform receipts for the exact hosts and scope.
+Intel Macs and Windows ARM are not covered by these packages.
 
 The interface provides installation checks, saved-data verification, a short
 calculation, a complete calculation, progress, stop and resume. A complete
 calculation can take days. Resume requires the same environment and worker
 count. Saved-result verification does not start an optimisation. Allow about
-4 GiB free space for extraction and verification; new full calculations need
-additional space and memory. Outputs and logs go to the selected folder.
+8 GiB free space for extraction and verification; new full calculations need
+additional space and memory. Outputs and logs go to the selected folder. Initial integrity checks can take
+several minutes on Windows; progress remains visible in the window.
 
-Command-line use from the extracted application directory:
+Command-line saved-data checking, from the extracted application directory:
 
 ```text
-./PISCO --action verify --workspace /path/to/output
-./PISCO --action smoke --workers 4 --workspace /path/to/output
-./PISCO --action full --workers 12 --workspace /path/to/output
+# Windows PowerShell
+.\PISCO.exe --action verify --workspace C:\PISCO-results
+# macOS Terminal
+./PISCO.app/Contents/MacOS/PISCO --action verify --workspace ~/PISCO-results
+# Linux terminal
+./PISCO --action verify --workspace ~/PISCO-results
 ```
+
+Use `--action smoke --workers 4` for a short computation or
+`--action full --workers 12` for the complete matrix. The window provides the
+same actions. Command-line use is optional.
 
 ## Scientific data and source
 
