@@ -168,6 +168,13 @@ def main():
     p.add_argument('--action', choices=('doctor', 'verify', 'smoke', 'full', 'resume'))
     p.add_argument('--gui-test', choices=('doctor', 'smoke'), help=argparse.SUPPRESS)
     args = p.parse_args()
+    # A Windows double-click starts without console handles. Keep diagnostics
+    # usable there too, including faulthandler during Qt startup/shutdown.
+    if sys.stdout is None or sys.stderr is None:
+        args.workspace.mkdir(parents=True, exist_ok=True)
+        startup_log = (args.workspace / 'startup-console.txt').open('a', encoding='utf-8', buffering=1)
+        if sys.stdout is None: sys.stdout = startup_log
+        if sys.stderr is None: sys.stderr = startup_log
     if args.action:
         cancel = threading.Event()
         import signal

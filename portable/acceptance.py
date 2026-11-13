@@ -43,6 +43,19 @@ def main():
         if result.returncode:
             print((output / (label + '.txt')).read_text(encoding='utf-8', errors='replace')[-12000:], flush=True)
             raise RuntimeError(f'{label} failed; see {output / (label + ".txt")}')
+    native_gui = False
+    if sys.platform in ('win32', 'darwin'):
+        # Exercise the actual window-system plugin. A detached Windows process
+        # also reproduces a double-click with no inherited console handles.
+        native_folder = output / 'native window output'
+        command = [str(exe), '--gui-test', 'doctor', '--workspace', str(native_folder)]
+        native_env = dict(env, QT_QPA_PLATFORM='windows' if os.name == 'nt' else 'cocoa')
+        options = {'creationflags': subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP} if os.name == 'nt' else {}
+        subprocess.run(command, env=native_env, timeout=180, check=True, **options)
+        window = json.loads((native_folder / 'gui-test.json').read_text())
+        native_gui = window['window_created'] and window['exit_code'] == 0
+        if not native_gui: raise RuntimeError('Native desktop launch failed.')
+        print('Native desktop launch passed.', flush=True)
     comparison_script = bundle / 'source/verification/compare_smoke.py'
     spec = importlib.util.spec_from_file_location('saved_comparison', comparison_script)
     module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
@@ -84,6 +97,7 @@ def main():
             figure_records.append({'command': command, 'exit_code': result.returncode, 'output': result.stdout + result.stderr})
             if result.returncode: raise RuntimeError('Figure tool failed: ' + result.stderr)
     report = {'passed': True, 'commands': records, 'worker_comparison_exact': True,
+              'native_gui_passed': native_gui,
               'short_rows': comparison['compared_rows'], 'actual_short_interruption_and_continuation_passed': True,
               'figures': figure_records, 'scope': 'Local author package tests; no complete optimisation or independent editorial confirmation.'}
     (output / 'acceptance.json').write_text(json.dumps(report, indent=2) + '\n')

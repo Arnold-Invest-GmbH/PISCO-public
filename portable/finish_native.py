@@ -24,7 +24,7 @@ def main():
     acceptance = json.loads((proof / 'acceptance.json').read_text())
     science = json.loads((proof / 'published output/verification/verification.json').read_text())
     comparison = json.loads((proof / 'worker-comparison.json').read_text())
-    if not (acceptance['passed'] and science['passed'] and comparison['all_selected_numerical_fields_exact']):
+    if not (acceptance['passed'] and acceptance['native_gui_passed'] and science['passed'] and comparison['all_selected_numerical_fields_exact']):
         raise RuntimeError('Native acceptance did not pass.')
     release = json.loads((bundle / 'release.json').read_text())
     # Do not label an altered binary/source tree with evidence from a different build.
@@ -40,6 +40,7 @@ def main():
         'short_runs': {'workers': [4, 12], 'rows_each': acceptance['short_rows'],
                        'selected_numerical_fields_exact': True, 'timing_equality_claimed': False},
         'offscreen_gui_passed': True,
+        'native_gui_passed': acceptance['native_gui_passed'],
         'stop_and_continue_passed': acceptance['actual_short_interruption_and_continuation_passed'],
         'figure_templates_passed': len(acceptance['figures']) // 2,
         'network_restriction': os.environ.get('PISCO_NETWORK_TEST'),
@@ -64,7 +65,7 @@ optimisation. Resume requires the same environment and worker count.
 
 This distribution passed automated target-platform acceptance, including saved
 data, real four/twelve-worker short calculations, selected numerical agreement,
-offscreen window operation, stop/continue and all five figure templates.
+native and offscreen window operation, stop/continue and all five figure templates.
 See `validation/summary.json` in the application resources for the exact host,
 source commit and test scope. No full matrix was rerun; numerical equality
 across platforms is not guaranteed. The scientific source is unchanged.
