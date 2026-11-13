@@ -6,6 +6,9 @@ on macOS or `PISCO` on Linux, select an output folder and choose
 `START_HERE.html` and `VALIDATION.md` for actions and tested conditions.
 No Python installation or Docker is required for recipients.
 
+For direct Python execution without the interface, see the
+[script guide](../code/README.md). Package building is a separate maintainer task.
+
 ## Additional native platform builds
 
 `build_native.py` builds Windows x64 and macOS Apple Silicon packages on those

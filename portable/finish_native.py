@@ -24,7 +24,11 @@ def main():
     acceptance = json.loads((proof / 'acceptance.json').read_text())
     science = json.loads((proof / 'published output/verification/verification.json').read_text())
     comparison = json.loads((proof / 'worker-comparison.json').read_text())
-    if not (acceptance['passed'] and acceptance['native_gui_passed'] and science['passed'] and comparison['all_selected_numerical_fields_exact']):
+    if not (acceptance['passed'] and acceptance['native_gui_passed'] and science['passed']
+            and comparison['all_selected_numerical_fields_exact']
+            and acceptance['direct_script_smoke_passed']
+            and acceptance['direct_script_numerical_agreement']
+            and acceptance['driver_figure_templates_passed'] == 5):
         raise RuntimeError('Native acceptance did not pass.')
     release = json.loads((bundle / 'release.json').read_text())
     # Do not label an altered binary/source tree with evidence from a different build.
@@ -43,6 +47,9 @@ def main():
         'native_gui_passed': acceptance['native_gui_passed'],
         'stop_and_continue_passed': acceptance['actual_short_interruption_and_continuation_passed'],
         'figure_templates_passed': len(acceptance['figures']) // 2,
+        'driver_jpeg_templates_passed': acceptance['driver_figure_templates_passed'],
+        'direct_script_smoke_passed': acceptance['direct_script_smoke_passed'],
+        'direct_script_numerical_agreement': acceptance['direct_script_numerical_agreement'],
         'network_restriction': os.environ.get('PISCO_NETWORK_TEST'),
         'limits': ['Automated tests on this hosted operating system, not every end-user computer.',
                    'No full experiment matrix recomputed.', 'No cross-platform bitwise equality claim.',
@@ -83,11 +90,17 @@ Windows ARM are not validated by these packages.
 Result files and diagnostic logs remain in the selected output folder. The
 saved data retain their original full-run environment metadata. Developer
 sources and the exact dependency locks are included under `source/`.
+
+For execution directly through Python, see the included
+[script guide](source/code/README.md). It explains `reproduce_all.py`, the
+`solvers.py` library, interpreter setup, complete runs, resuming and checking
+saved results. No graphical interface is needed for this route.
 '''
     (bundle / 'README.md').write_text(instructions, encoding='utf-8')
     (bundle / 'BUILD_MATRIX.md').write_text('# Package validation\n\nThis package passed automated acceptance on '+platform.platform()+'.\nSee validation/summary.json for the exact checks and limits.\n', encoding='utf-8')
     if root != bundle:
-        shutil.copy2(bundle / 'README.md', root / 'README.md')
+        (root / 'README.md').write_text(instructions.replace(
+            '](source/code/README.md)', '](PISCO.app/Contents/Resources/source/code/README.md)'), encoding='utf-8')
         shutil.copy2(bundle / 'BUILD_MATRIX.md', root / 'BUILD_MATRIX.md')
     seal(bundle)
     args.output.mkdir(parents=True, exist_ok=True)

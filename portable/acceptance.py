@@ -94,6 +94,20 @@ def main():
     support = bundle / 'source/code/paper_support'
     figure_records = []
     env = engine.environment()
+    python = bundle / manifest['python_executable']
+    direct = output / 'direct script output'
+    with (output / 'direct-script.txt').open('w', encoding='utf-8') as log:
+        subprocess.run([str(python), '-B', '-X', 'utf8', '-u',
+            str(bundle / 'source/code/reproduce_all.py'), '--smoke', '--workers', '4',
+            '--fresh', '--output', str(direct)], env=env, cwd=output,
+            stdout=log, stderr=subprocess.STDOUT, timeout=600, check=True)
+    if not json.loads((direct / 'smoke_verification.json').read_text())['passed']:
+        raise RuntimeError('Direct script execution failed its evidence checks.')
+    direct_comparison = module.compare(short4, direct)
+    if not direct_comparison['all_selected_numerical_fields_exact']:
+        raise RuntimeError('Direct script and packaged launch differ numerically.')
+    (output / 'direct-script-comparison.json').write_text(json.dumps(direct_comparison, indent=2) + '\n')
+    print('Direct reproduce_all.py execution passed.', flush=True)
     for source in sorted((support / 'schemas').glob('*.typ')):
         pdf = figures / (source.stem + '.pdf'); stem = figures / source.stem
         extension = '.exe' if os.name == 'nt' else ''
@@ -102,8 +116,33 @@ def main():
             result = subprocess.run(command, env=env, capture_output=True, text=True)
             figure_records.append({'command': command, 'exit_code': result.returncode, 'output': result.stdout + result.stderr})
             if result.returncode: raise RuntimeError('Figure tool failed: ' + result.stderr)
+    # Invoke the actual frozen driver method, including its 700 dpi JPEG
+    # options and .jpg -> .jpeg rename, rather than approximating its command.
+    probe = '''from pathlib import Path
+import sys
+sys.path.insert(0, sys.argv[1])
+import reproduce_all
+from PIL import Image
+builder = reproduce_all.PublicationBuilder(Path(sys.argv[2]))
+sources = sorted((Path(sys.argv[1]) / 'paper_support/schemas').glob('*.typ'))
+assert len(sources) == 5
+for source in sources:
+    pdf = builder._render_typst_figure(source.name, source.stem + '.pdf')
+    with Image.open(pdf.with_suffix('.jpeg')) as picture:
+        assert picture.format == 'JPEG'
+        assert abs(picture.info['dpi'][0] - 700) < 1
+        picture.verify()
+print('All five driver JPEG figures passed at 700 dpi.')
+'''
+    with (output / 'driver-figures.txt').open('w', encoding='utf-8') as log:
+        subprocess.run([str(python), '-B', '-X', 'utf8', '-u', '-c', probe,
+            str(bundle / 'source/code'), str(output / 'driver figures')], env=env,
+            stdout=log, stderr=subprocess.STDOUT, timeout=300, check=True)
+    print('Actual driver JPEG figure calls passed.', flush=True)
     report = {'passed': True, 'commands': records, 'worker_comparison_exact': True,
               'native_gui_passed': native_gui,
+              'direct_script_smoke_passed': True, 'direct_script_numerical_agreement': True,
+              'driver_figure_templates_passed': 5,
               'short_rows': comparison['compared_rows'], 'actual_short_interruption_and_continuation_passed': True,
               'figures': figure_records, 'scope': 'Local author package tests; no complete optimisation or independent editorial confirmation.'}
     (output / 'acceptance.json').write_text(json.dumps(report, indent=2) + '\n')

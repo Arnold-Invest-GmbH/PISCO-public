@@ -54,6 +54,18 @@ Use `--action smoke --workers 4` for a short computation or
 `--action full --workers 12` for the complete matrix. The window provides the
 same actions. Command-line use is optional.
 
+## Run the Python scripts directly
+
+The [script guide](code/README.md) describes the alternative terminal route for
+Linux, Windows and macOS: use the included Python runtime or create a virtual
+environment, install the locked dependencies, then run `reproduce_all.py`
+directly. It gives complete commands for a short test, the full matrix,
+continuation, rebuilding outputs and checking the saved dataset.
+
+`reproduce_all.py` is the entry point. It imports `solvers.py`, which contains
+the numerical solver classes; that library does not need a separate launch.
+The same solver-class and central-driver structure is used by the application.
+
 ## Scientific data and source
 
 `PISCO_en.pdf` is the current manuscript. `code/solvers.py` implements the
