@@ -32,13 +32,17 @@ def main():
         *([('published', ['--action', 'verify'])] if args.with_archive else []),
     ]:
         command = [str(exe), *options, '--workspace', str(output / (label + ' output'))]
-        env = dict(os.environ, QT_QPA_PLATFORM='offscreen', PATH='/no-external-python' if os.name != 'nt' else os.environ['PATH'])
+        system = Path(os.environ.get('SystemRoot', 'C:/Windows'))
+        clean_path = os.pathsep.join((str(system / 'System32'), str(system))) if os.name == 'nt' else '/no-external-python'
+        env = dict(os.environ, QT_QPA_PLATFORM='offscreen', PATH=clean_path)
         started = time.monotonic()
         with (output / (label + '.txt')).open('w') as log:
             result = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT, env=env)
         records.append({'name': label, 'command': command, 'exit_code': result.returncode, 'seconds': time.monotonic()-started})
         print(label, result.returncode, flush=True)
-        if result.returncode: raise RuntimeError(f'{label} failed; see {output / (label + ".txt")}')
+        if result.returncode:
+            print((output / (label + '.txt')).read_text(encoding='utf-8', errors='replace')[-12000:], flush=True)
+            raise RuntimeError(f'{label} failed; see {output / (label + ".txt")}')
     comparison_script = bundle / 'source/verification/compare_smoke.py'
     spec = importlib.util.spec_from_file_location('saved_comparison', comparison_script)
     module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module)

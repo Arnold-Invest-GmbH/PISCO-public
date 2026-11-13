@@ -73,8 +73,10 @@ def windows_environment():
     if not installation:
         raise RuntimeError('Visual C++ build tools are required on the Windows build machine.')
     devcmd = Path(installation) / 'Common7/Tools/VsDevCmd.bat'
-    output = subprocess.check_output(['cmd.exe', '/d', '/s', '/c',
-        f'call "{devcmd}" -arch=x64 -host_arch=x64 >nul && set'], text=True, errors='replace')
+    # cmd.exe uses its own quoting rules, not the C argv rules applied by
+    # subprocess.list2cmdline. Pass the command line intact to CreateProcess.
+    command = f'cmd.exe /d /s /c "call "{devcmd}" -arch=x64 -host_arch=x64 >nul && set"'
+    output = subprocess.check_output(command, text=True, errors='replace')
     env = dict(os.environ)
     for line in output.splitlines():
         if '=' in line and not line.startswith('='):

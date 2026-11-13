@@ -1,7 +1,8 @@
-# Native Linux application
+# Native desktop applications
 
-Extract `PISCO-linux-x86_64.zip`, open `PISCO`, select an output folder and
-choose **Check paper results**. The saved results are included. See
+Extract the matching platform ZIP, open `PISCO.exe` on Windows, `PISCO.app`
+on macOS or `PISCO` on Linux, select an output folder and choose
+**Check paper results**. The saved results are included. See
 `START_HERE.html` and `VALIDATION.md` for actions and tested conditions.
 No Python installation or Docker is required for recipients.
 
@@ -70,6 +71,7 @@ agreement, stop/resume, the window and all five figure templates. Keep detailed
 build logs locally; publish only the matching concise validation report and
 checksums. A short test does not establish complete-matrix or cross-CPU equality.
 
-`runtimes.lock.json` records possible runtime inputs for additional systems;
-only the Linux package has been built and tested. The application displays
-errors and preserves console logs in the selected output folder.
+`runtimes.lock.json` records the pinned runtime inputs. The release assets and
+their platform-specific validation receipts identify the packages that passed
+acceptance. The application displays errors and preserves console logs in the
+selected output folder.
