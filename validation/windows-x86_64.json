@@ -1,14 +1,14 @@
 {
   "filename": "PISCO-windows-x86_64.zip",
-  "bytes": 640545723,
-  "sha256": "2da4c3f4c056b152cb05c2b3332bad0aef5bd3ea13ea2a4a785b7a3e27101be7",
+  "bytes": 640554388,
+  "sha256": "fe83dc1ac998a2f09c48a858e79c2aae676614c645c293a485f323d11a2d290e",
   "platform": "windows-x86_64",
   "source_sha256": {
     "solvers.py": "cdd701f69e8ec906b55b9a2c6a209926bd5da894971d39abfe6147beea5b4290",
     "reproduce_all.py": "cecf8c2401c822e8530de39822bd19cb6d53331aaffcac42cd52c73bd656de52"
   },
   "results_sha256": "1cf03ae1254e7a489b2c9da44f3ac5bf23ae49db63b6bcc36811d0718d158775",
-  "build_commit": "bd8b94ca3e0581440d8cb0c05ce25f327814a1b7",
+  "build_commit": "7cd763550ee39cab7271086fff8979aebfe1837c",
   "zip_crc_passed": true,
   "extracted_zip_verification_passed": true,
   "validation": {
@@ -16,12 +16,12 @@
     "platform": "windows-x86_64",
     "host": "Windows-2025Server-10.0.26100-SP0",
     "machine": "AMD64",
-    "build_commit": "bd8b94ca3e0581440d8cb0c05ce25f327814a1b7",
+    "build_commit": "7cd763550ee39cab7271086fff8979aebfe1837c",
     "source_sha256": {
       "solvers.py": "cdd701f69e8ec906b55b9a2c6a209926bd5da894971d39abfe6147beea5b4290",
       "reproduce_all.py": "cecf8c2401c822e8530de39822bd19cb6d53331aaffcac42cd52c73bd656de52"
     },
-    "ci_run_url": "https://github.com/Arnold-Invest-GmbH/PISCO-public/actions/runs/43427817370",
+    "ci_run_url": "https://github.com/Arnold-Invest-GmbH/PISCO-public/actions/runs/43439909398",
     "saved_data": {
       "result_rows": 526,
       "artifact_count": 4248,
@@ -42,6 +42,9 @@
     "native_gui_passed": true,
     "stop_and_continue_passed": true,
     "figure_templates_passed": 5,
+    "driver_jpeg_templates_passed": 5,
+    "direct_script_smoke_passed": true,
+    "direct_script_numerical_agreement": true,
     "network_restriction": "Windows outbound firewall rules for runtime and figure tools during acceptance",
     "limits": [
       "Automated tests on this hosted operating system, not every end-user computer.",

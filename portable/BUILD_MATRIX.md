@@ -13,6 +13,12 @@ was extracted into a fresh location and its saved-data action passed again.
 Windows/macOS extraction also tested a path containing spaces and a non-ASCII
 character. See VALIDATION.md and the release receipts for evidence.
 
+The direct Python route also passed a real 16-row short run on all three
+platforms. On Windows/macOS, its selected numerical fields matched the
+application launch. The actual driver's five 700 dpi JPEG diagram calls were
+checked on all three platforms; see the additional Linux script record and
+the Windows/macOS receipts.
+
 Linux requires glibc 2.36+ and X11/XWayland for its window. macOS dependencies
 require macOS 14+ and Apple Silicon. Intel Macs and Windows ARM are not covered.
 Hosted OS tests do not cover every end-user machine. The Debian userland shares

@@ -216,8 +216,9 @@ files. It reuses the solver results, but some illustrations perform additional
 FEM evaluations, recorded in `figure_generation_evidence.json`. Use it on your
 own completed run, not on the released data-only export. Check
 `figure_generation_error.json`: if present, figure generation failed even if
-numerical completeness checks passed. Install/fix the required tools and rerun
-`--build`; a new optimisation is not needed for that repair.
+all numerical runs finished. Install/fix the required tools and rerun `--build`;
+a new optimisation is not needed for that repair. Then run `--verify` to check
+the rebuilt full run; `--build` alone does not invoke this final verification.
 
 ## Check the published results without recomputing them
 

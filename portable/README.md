@@ -20,8 +20,9 @@ command-line options needed by the frozen scientific driver.
 
 The manually dispatched `Native Windows and macOS packages` workflow builds on
 GitHub's target-OS runners, runs saved-data and real short-computation checks,
-compares four/twelve-worker results, checks the offscreen window, stop/continue,
-and all five figures, and verifies a freshly extracted ZIP. Publication requires
+compares four/twelve-worker results, checks direct driver execution against the
+application, the native/offscreen windows, stop/continue, all five PNG diagrams
+and the driver's actual 700 dpi JPEG calls, and verifies a freshly extracted ZIP. Publication requires
 both platform jobs to pass. A build script or runtime download alone is not a
 validated platform release. These distributions are unsigned; macOS builds are
 not Apple-notarized and can require normal operating-system user approval.

@@ -1,0 +1,90 @@
+{
+  "passed": true,
+  "date": "2026-11-13",
+  "platform": "linux-x86_64",
+  "scope": "Additional local direct-script checks using the released Linux runtime and unmodified scientific sources; not a full-matrix rerun.",
+  "application_sha256": "02a9fedfc9f2de4d214281a818dc9530dea1062dc361315513ed3fa1d0b59b18",
+  "source_sha256": {
+    "solvers.py": "cdd701f69e8ec906b55b9a2c6a209926bd5da894971d39abfe6147beea5b4290",
+    "reproduce_all.py": "cecf8c2401c822e8530de39822bd19cb6d53331aaffcac42cd52c73bd656de52"
+  },
+  "entry_point": "code/reproduce_all.py",
+  "help_passed": true,
+  "list_passed": true,
+  "direct_script_smoke": {
+    "mode": "SMOKE_TEST_NOT_PUBLICATION",
+    "passed": true,
+    "runs": 16,
+    "hashed_artifacts": 154,
+    "failures": [],
+    "publication_complete": false,
+    "scope": "Real reduced-budget E1/E2/Fin solves, scalar/field controls, mesh refinement and documentation; not all publication algorithms"
+  },
+  "driver_jpeg_figures": {
+    "passed": true,
+    "actual_frozen_driver_method": true,
+    "renderer": "Poppler supplied with Linux package",
+    "templates": [
+      {
+        "template": "wrap_compliance_en.typ",
+        "format": "JPEG",
+        "dpi": [
+          700,
+          700
+        ],
+        "dimensions": [
+          3124,
+          1412
+        ]
+      },
+      {
+        "template": "wrap_ellipse_setup_en.typ",
+        "format": "JPEG",
+        "dpi": [
+          700,
+          700
+        ],
+        "dimensions": [
+          4029,
+          2196
+        ]
+      },
+      {
+        "template": "wrap_verschaltung_en.typ",
+        "format": "JPEG",
+        "dpi": [
+          700,
+          700
+        ],
+        "dimensions": [
+          4288,
+          1670
+        ]
+      },
+      {
+        "template": "wrap_workflow_detail_en.typ",
+        "format": "JPEG",
+        "dpi": [
+          700,
+          700
+        ],
+        "dimensions": [
+          4309,
+          5473
+        ]
+      },
+      {
+        "template": "wrap_workflow_kompakt_en.typ",
+        "format": "JPEG",
+        "dpi": [
+          700,
+          700
+        ],
+        "dimensions": [
+          3684,
+          2339
+        ]
+      }
+    ]
+  }
+}
