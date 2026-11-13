@@ -1,0 +1,43 @@
+{
+  "package": "PISCO paper reproduction",
+  "status": "locally validated native Linux distribution",
+  "platform": "linux-x86_64",
+  "python_executable": "runtime/bin/python3",
+  "runtime_distribution": {
+    "url": "https://github.com/astral-sh/python-build-standalone/releases/download/20261020/cpython-3.14.8%2B20261020-x86_64-unknown-linux-gnu-install_only_stripped.tar.gz",
+    "sha256": "b88a4ac994ac55c35a03a3672103618d5c5d5bf342db7b2093b8d328b6516b42",
+    "bytes": 36606645
+  },
+  "source_sha256": {
+    "solvers.py": "cdd701f69e8ec906b55b9a2c6a209926bd5da894971d39abfe6147beea5b4290",
+    "reproduce_all.py": "cecf8c2401c822e8530de39822bd19cb6d53331aaffcac42cd52c73bd656de52"
+  },
+  "results_archive": {
+    "filename": "results.zip",
+    "sha256": "1cf03ae1254e7a489b2c9da44f3ac5bf23ae49db63b6bcc36811d0718d158775",
+    "bytes": 264840553,
+    "uncompressed_bytes": 930016278,
+    "file_count": 4249
+  },
+  "build_host": "Linux-7.3.0-5-cachyos-x86_64-with-glibc2.44",
+  "prepared_runtime_used": true,
+  "launcher_toolchain": {
+    "source_url": "https://musl.libc.org/releases/musl-1.2.5.tar.gz",
+    "sha256": "a9a118bbe84d8764da0ea0d28b3ab3fae8477fc7e4085d90102b8596fc7c75e4",
+    "cpu_target": "baseline x86-64"
+  },
+  "limits": [
+    "Only the subsequently recorded systems/tests establish support.",
+    "No universal or cross-architecture bitwise equality guarantee.",
+    "Original full publication results were computed in their recorded host environment."
+  ],
+  "release_id": "r2-2026-11-13",
+  "validation": {
+    "report": "validation/summary.json",
+    "independent_editorial_confirmation": false
+  },
+  "delivery": {
+    "application_zip": "PISCO-linux-x86_64.zip",
+    "results_included": true
+  }
+}

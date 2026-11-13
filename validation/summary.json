@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-13",
+  "passed": true,
+  "platform": "Linux x86-64",
+  "author_host": {
+    "cpu": "AMD Ryzen AI 9 HX 370",
+    "os": "CachyOS",
+    "glibc": "2.44"
+  },
+  "isolated_environment": {
+    "userland": "Debian 12",
+    "glibc": "2.36",
+    "network": false,
+    "package_read_only": true,
+    "same_host_cpu_and_kernel": true
+  },
+  "saved_data": {
+    "artifact_count": 4248,
+    "result_rows": 526,
+    "experiment_configurations": 66,
+    "completed_solver_runs": 520,
+    "reused_sensitivity_rows": 6,
+    "current_numeric_summaries": 92,
+    "statistical_contrasts": 40
+  },
+  "saved_data_checks": 14537,
+  "source_sha256": {
+    "solvers.py": "cdd701f69e8ec906b55b9a2c6a209926bd5da894971d39abfe6147beea5b4290",
+    "reproduce_all.py": "cecf8c2401c822e8530de39822bd19cb6d53331aaffcac42cd52c73bd656de52"
+  },
+  "short_runs": {
+    "workers": [
+      4,
+      12
+    ],
+    "rows_each": 16,
+    "selected_numerical_fields_exact": true,
+    "elapsed_times_compared": false
+  },
+  "stop_and_continue_passed": true,
+  "figure_templates_passed": 5,
+  "launcher_tests_passed": 15,
+  "desktop_and_offscreen_checks_passed": true,
+  "limits": [
+    "Local author tests on one physical laptop.",
+    "No full optimisation matrix rerun in the bundled runtime.",
+    "No validation on other processors or operating systems.",
+    "No cross-architecture bitwise equality guarantee."
+  ]
+}

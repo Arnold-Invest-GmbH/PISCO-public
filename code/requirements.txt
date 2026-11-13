@@ -1,0 +1,8 @@
+# Versions used for the R2 implementation tests; Python 3.11+
+numpy==2.5.4
+scipy==1.18.1
+torch==2.14.1
+matplotlib==3.11.2
+scikit-learn==1.9.1
+Pillow==13.0.0
+threadpoolctl==3.7.0

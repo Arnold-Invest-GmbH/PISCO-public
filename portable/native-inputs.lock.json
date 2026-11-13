@@ -1,0 +1,7 @@
+{
+  "filename": "PISCO-native-inputs.tar.gz",
+  "sha256": "78e6f20eab34ce1962589dd83210f12213748a650a80b6df5a27be6ab620e4fc",
+  "bytes": 37171557,
+  "url": "https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-13/PISCO-native-inputs.tar.gz",
+  "contents": "Native tools, libraries, fonts, Typst package cache and copyright notices only."
+}

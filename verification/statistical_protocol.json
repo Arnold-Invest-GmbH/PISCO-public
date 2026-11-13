@@ -1,0 +1,114 @@
+{
+  "example3": [
+    {
+      "label": "PISCO vs ARD-BO at d=35",
+      "family": "dimension_pisco_vs_ard_bo",
+      "test": "two-sided paired t-test"
+    },
+    {
+      "label": "PISCO vs CMA-ES at d=35",
+      "family": "dimension_pisco_vs_cmaes",
+      "test": "two-sided Welch t-test"
+    },
+    {
+      "label": "PISCO vs DE at d=35",
+      "family": "dimension_pisco_vs_de",
+      "test": "two-sided Welch t-test"
+    },
+    {
+      "label": "PISCO vs random search at d=35",
+      "family": "dimension_pisco_vs_random",
+      "test": "two-sided Welch t-test"
+    },
+    {
+      "label": "PISCO vs ARD-BO at d=62",
+      "family": "dimension_pisco_vs_ard_bo",
+      "test": "two-sided paired t-test"
+    },
+    {
+      "label": "PISCO vs CMA-ES at d=62",
+      "family": "dimension_pisco_vs_cmaes",
+      "test": "two-sided Welch t-test"
+    },
+    {
+      "label": "PISCO vs DE at d=62",
+      "family": "dimension_pisco_vs_de",
+      "test": "two-sided Welch t-test"
+    },
+    {
+      "label": "PISCO vs random search at d=62",
+      "family": "dimension_pisco_vs_random",
+      "test": "two-sided Welch t-test"
+    },
+    {
+      "label": "PISCO vs ARD-BO at d=135",
+      "family": "dimension_pisco_vs_ard_bo",
+      "test": "two-sided paired t-test"
+    },
+    {
+      "label": "PISCO vs CMA-ES at d=135",
+      "family": "dimension_pisco_vs_cmaes",
+      "test": "two-sided Welch t-test"
+    },
+    {
+      "label": "PISCO vs DE at d=135",
+      "family": "dimension_pisco_vs_de",
+      "test": "two-sided Welch t-test"
+    },
+    {
+      "label": "PISCO vs random search at d=135",
+      "family": "dimension_pisco_vs_random",
+      "test": "two-sided Welch t-test"
+    },
+    {
+      "label": "PISCO vs ARD-BO at d=243",
+      "family": "dimension_pisco_vs_ard_bo",
+      "test": "two-sided paired t-test"
+    },
+    {
+      "label": "PISCO vs CMA-ES at d=243",
+      "family": "dimension_pisco_vs_cmaes",
+      "test": "two-sided Welch t-test"
+    },
+    {
+      "label": "PISCO vs DE at d=243",
+      "family": "dimension_pisco_vs_de",
+      "test": "two-sided Welch t-test"
+    },
+    {
+      "label": "PISCO vs random search at d=243",
+      "family": "dimension_pisco_vs_random",
+      "test": "two-sided Welch t-test"
+    },
+    {
+      "label": "field surrogate vs scalar surrogate at d=35",
+      "family": "architecture_ablations",
+      "test": "two-sided paired t-test"
+    },
+    {
+      "label": "physics residual vs no physics at d=35",
+      "family": "architecture_ablations",
+      "test": "two-sided paired t-test"
+    },
+    {
+      "label": "no-physics field output vs scalar output at d=35",
+      "family": "architecture_mechanism_sensitivity",
+      "test": "two-sided paired t-test"
+    },
+    {
+      "label": "coarse-to-fine PISCO vs coarse-to-fine ARD-BO",
+      "family": "nested_control",
+      "test": "two-sided paired t-test"
+    },
+    {
+      "label": "coarse-to-fine PISCO vs static PISCO at d=243",
+      "family": "nested_strategy",
+      "test": "two-sided Welch t-test"
+    },
+    {
+      "label": "coarse-to-fine ARD-BO vs static ARD-BO at d=243",
+      "family": "nested_strategy",
+      "test": "two-sided Welch t-test"
+    }
+  ]
+}

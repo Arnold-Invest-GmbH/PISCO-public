@@ -1,0 +1,257 @@
+{
+  "base_url": "https://snapshot.debian.org/archive/debian/20261101T000000Z/",
+  "packages": [
+    {
+      "Package": "libdbus-1-3",
+      "Version": "1.14.10-1~deb12u1",
+      "Filename": "pool/main/d/dbus/libdbus-1-3_1.14.10-1~deb12u1_amd64.deb",
+      "SHA256": "18ee0ce5fab9f7b671e87da1e9fa18660e36e04a3402f24bdb8635e0ba1d35f6"
+    },
+    {
+      "Package": "libegl1",
+      "Version": "1.6.0-1",
+      "Filename": "pool/main/libg/libglvnd/libegl1_1.6.0-1_amd64.deb",
+      "SHA256": "fe4d8b39f6e6fe1a32ab1efd85893553eaa9cf3866aa668ccf355f585b37d523"
+    },
+    {
+      "Package": "libgl1",
+      "Version": "1.6.0-1",
+      "Filename": "pool/main/libg/libglvnd/libgl1_1.6.0-1_amd64.deb",
+      "SHA256": "6f89b1702c48e9a2437bb3c1ffac8e1ab2d828fc28b3d14b2eecd4cc19b2c790"
+    },
+    {
+      "Package": "libglvnd0",
+      "Version": "1.6.0-1",
+      "Filename": "pool/main/libg/libglvnd/libglvnd0_1.6.0-1_amd64.deb",
+      "SHA256": "b6da5b153dd62d8b5e5fbe25242db1fc05c068707c365db49abda8c2427c75f8"
+    },
+    {
+      "Package": "libglx0",
+      "Version": "1.6.0-1",
+      "Filename": "pool/main/libg/libglvnd/libglx0_1.6.0-1_amd64.deb",
+      "SHA256": "95f568df73dedf43ae66834a75502112e0d4f3ad7124f3dbfa790b739383b896"
+    },
+    {
+      "Package": "libopengl0",
+      "Version": "1.6.0-1",
+      "Filename": "pool/main/libg/libglvnd/libopengl0_1.6.0-1_amd64.deb",
+      "SHA256": "dc71cb5aaddeb8b09b3d63b8426fd651d8c79ad55b23dbe640c1abbc94c85013"
+    },
+    {
+      "Package": "libice6",
+      "Version": "2:1.0.10-1",
+      "Filename": "pool/main/libi/libice/libice6_1.0.10-1_amd64.deb",
+      "SHA256": "452796e565c9d42386bd59990000ae9c37d85e142e00ee2b14df0787e2bbf970"
+    },
+    {
+      "Package": "libsm6",
+      "Version": "2:1.2.3-1",
+      "Filename": "pool/main/libs/libsm/libsm6_1.2.3-1_amd64.deb",
+      "SHA256": "22a420890489023346f30fecef14ea900a0788e7bf959ef826aabb83944fccfb"
+    },
+    {
+      "Package": "libx11-6",
+      "Version": "2:1.8.4-2+deb12u2",
+      "Filename": "pool/main/libx/libx11/libx11-6_1.8.4-2+deb12u2_amd64.deb",
+      "SHA256": "d88c973e79fd9b65838d77624142952757e47a6eb1a58602acf0911cf35989f4"
+    },
+    {
+      "Package": "libxau6",
+      "Version": "1:1.0.9-1",
+      "Filename": "pool/main/libx/libxau/libxau6_1.0.9-1_amd64.deb",
+      "SHA256": "679db1c4579ec7c61079adeaae8528adeb2e4bf5465baa6c56233b995d714750"
+    },
+    {
+      "Package": "libxcb-randr0",
+      "Version": "1.15-1",
+      "Filename": "pool/main/libx/libxcb/libxcb-randr0_1.15-1_amd64.deb",
+      "SHA256": "f86e3d8ff8622871008833e9d064919b7a6237399c903c59fc330ff00f199ff5"
+    },
+    {
+      "Package": "libxcb-render0",
+      "Version": "1.15-1",
+      "Filename": "pool/main/libx/libxcb/libxcb-render0_1.15-1_amd64.deb",
+      "SHA256": "29c32cc76be9393f409378be79a0f534b9f07dea06ae52fa80a7f27e298de239"
+    },
+    {
+      "Package": "libxcb-shape0",
+      "Version": "1.15-1",
+      "Filename": "pool/main/libx/libxcb/libxcb-shape0_1.15-1_amd64.deb",
+      "SHA256": "e0d0e31db4d72e2f7246d40edc6bd75e0249ae3138839e60a268db7da40a6ae2"
+    },
+    {
+      "Package": "libxcb-shm0",
+      "Version": "1.15-1",
+      "Filename": "pool/main/libx/libxcb/libxcb-shm0_1.15-1_amd64.deb",
+      "SHA256": "c1afcef29dc78b95c475159b181b28b1dedaf1d5aa06efd2fa6d90c73bfbe0e5"
+    },
+    {
+      "Package": "libxcb-sync1",
+      "Version": "1.15-1",
+      "Filename": "pool/main/libx/libxcb/libxcb-sync1_1.15-1_amd64.deb",
+      "SHA256": "3366ce715220d38dd0148b78a8e738137bade25ef7eec0698850c6f66800844f"
+    },
+    {
+      "Package": "libxcb-xfixes0",
+      "Version": "1.15-1",
+      "Filename": "pool/main/libx/libxcb/libxcb-xfixes0_1.15-1_amd64.deb",
+      "SHA256": "d744a7ebad2cbcf301c96cd6a1ab3ee856e436fc7be5cff5b7c28ac2ac181a64"
+    },
+    {
+      "Package": "libxcb-xinerama0",
+      "Version": "1.15-1",
+      "Filename": "pool/main/libx/libxcb/libxcb-xinerama0_1.15-1_amd64.deb",
+      "SHA256": "2932300acae42ebc22e026e1abf0c8926621dae5a6b7a3eb400aace88b4ec22c"
+    },
+    {
+      "Package": "libxcb-xkb1",
+      "Version": "1.15-1",
+      "Filename": "pool/main/libx/libxcb/libxcb-xkb1_1.15-1_amd64.deb",
+      "SHA256": "1dc2f0de8576b1855b451a7e2a7163ecb5be08f8384f49655414714b48f6fa1b"
+    },
+    {
+      "Package": "libxcb1",
+      "Version": "1.15-1",
+      "Filename": "pool/main/libx/libxcb/libxcb1_1.15-1_amd64.deb",
+      "SHA256": "fdc61332a3892168f3cc9cfa1fe9cf11a91dc3e0acacbc47cbc50ebaa234cc71"
+    },
+    {
+      "Package": "libxdmcp6",
+      "Version": "1:1.1.2-3",
+      "Filename": "pool/main/libx/libxdmcp/libxdmcp6_1.1.2-3_amd64.deb",
+      "SHA256": "ecb8536f5fb34543b55bb9dc5f5b14c9dbb4150a7bddb3f2287b7cab6e9d25ef"
+    },
+    {
+      "Package": "libxext6",
+      "Version": "2:1.3.4-1+b1",
+      "Filename": "pool/main/libx/libxext/libxext6_1.3.4-1+b1_amd64.deb",
+      "SHA256": "504b7be9d7df4f6f4519e8dd4d6f9d03a9fb911a78530fa23a692fba3058cba6"
+    },
+    {
+      "Package": "libxfixes3",
+      "Version": "1:6.0.0-2",
+      "Filename": "pool/main/libx/libxfixes/libxfixes3_6.0.0-2_amd64.deb",
+      "SHA256": "1cd616396ff2ecae77e6e8b5b7695d414f0146de2d147837a2a02165f99e1a2c"
+    },
+    {
+      "Package": "libxi6",
+      "Version": "2:1.8-1+b1",
+      "Filename": "pool/main/libx/libxi/libxi6_1.8-1+b1_amd64.deb",
+      "SHA256": "6c2fb5f241b311788990122c6e693915867cd8ed9d6da2e3524aec7ed3cdb4c0"
+    },
+    {
+      "Package": "libxkbcommon-x11-0",
+      "Version": "1.5.0-1",
+      "Filename": "pool/main/libx/libxkbcommon/libxkbcommon-x11-0_1.5.0-1_amd64.deb",
+      "SHA256": "9b34d760f0ca0f125419a6becc6492c489f0371953ef42caad3401199a497ff5"
+    },
+    {
+      "Package": "libxkbcommon0",
+      "Version": "1.5.0-1",
+      "Filename": "pool/main/libx/libxkbcommon/libxkbcommon0_1.5.0-1_amd64.deb",
+      "SHA256": "e3fe045b9a33a101de1c5a912a4a10928db055c3f68930f47eccbb44d7c7d54e"
+    },
+    {
+      "Package": "libxrender1",
+      "Version": "1:0.9.10-1.1",
+      "Filename": "pool/main/libx/libxrender/libxrender1_0.9.10-1.1_amd64.deb",
+      "SHA256": "b2a6d160578f359220101947c8d67059b44704a251e688de1d0b744fefedfd1a"
+    },
+    {
+      "Package": "libxcb-util1",
+      "Version": "0.4.0-1+b1",
+      "Filename": "pool/main/x/xcb-util/libxcb-util1_0.4.0-1+b1_amd64.deb",
+      "SHA256": "4c48af51fb2ac1be0490067e7450aeda27bf6c6c395165de02199eee4835336f"
+    },
+    {
+      "Package": "libxcb-cursor0",
+      "Version": "0.1.4-1",
+      "Filename": "pool/main/x/xcb-util-cursor/libxcb-cursor0_0.1.4-1_amd64.deb",
+      "SHA256": "a4b3c32dc008275ffcacccc1c77c030f01aad38e232e05d5ad116b76656c607c"
+    },
+    {
+      "Package": "libxcb-image0",
+      "Version": "0.4.0-2",
+      "Filename": "pool/main/x/xcb-util-image/libxcb-image0_0.4.0-2_amd64.deb",
+      "SHA256": "a475522faef7672ca065fdcd2594bc755bfcc4d819909f9d944e8c002b4460d1"
+    },
+    {
+      "Package": "libxcb-keysyms1",
+      "Version": "0.4.0-1+b2",
+      "Filename": "pool/main/x/xcb-util-keysyms/libxcb-keysyms1_0.4.0-1+b2_amd64.deb",
+      "SHA256": "aed1436db9a3e63b10d00c4ed16248b5c82b5dd2963a83a761f406af65eb4b49"
+    },
+    {
+      "Package": "libxcb-render-util0",
+      "Version": "0.3.9-1+b1",
+      "Filename": "pool/main/x/xcb-util-renderutil/libxcb-render-util0_0.3.9-1+b1_amd64.deb",
+      "SHA256": "be4b38a63e65c84e2f1322f044d05a9baa677e0f3dc68b742a0a109a3ff40ae9"
+    },
+    {
+      "Package": "libxcb-icccm4",
+      "Version": "0.4.1-1.1",
+      "Filename": "pool/main/x/xcb-util-wm/libxcb-icccm4_0.4.1-1.1_amd64.deb",
+      "SHA256": "f323194cb04cd4e5ae064fafec39db6dcf8a431cbd65a0bc53fa6c359862d8ff"
+    },
+    {
+      "Package": "libglib2.0-0",
+      "Version": "2.74.6-2+deb12u9",
+      "Filename": "pool/main/g/glib2.0/libglib2.0-0_2.74.6-2+deb12u9_amd64.deb",
+      "SHA256": "7ff85197685d89e150e342b29a59aab1beee400050ba7da73de81cd999ffee5a"
+    },
+    {
+      "Package": "libcap2",
+      "Version": "1:2.66-4+deb12u3+b1",
+      "Filename": "pool/main/libc/libcap2/libcap2_2.66-4+deb12u3+b1_amd64.deb",
+      "SHA256": "8d684c673e7483802a5c447834b0df6fce006eb3a7109e1be412f5ad425bb24f"
+    },
+    {
+      "Package": "libffi8",
+      "Version": "3.4.4-1",
+      "Filename": "pool/main/libf/libffi/libffi8_3.4.4-1_amd64.deb",
+      "SHA256": "6d9f6c25c30efccce6d4bceaa48ea86c329a3432abb360a141f76ac223a4c34a"
+    },
+    {
+      "Package": "libgcrypt20",
+      "Version": "1.10.1-3+deb12u1",
+      "Filename": "pool/main/libg/libgcrypt20/libgcrypt20_1.10.1-3+deb12u1_amd64.deb",
+      "SHA256": "e7a56552139c693904a6f9712234c05fe918353273a7cbdb5e62f423ad71bb97"
+    },
+    {
+      "Package": "libgpg-error0",
+      "Version": "1.46-1",
+      "Filename": "pool/main/libg/libgpg-error/libgpg-error0_1.46-1_amd64.deb",
+      "SHA256": "89944ee11d7370ce6ef46fc52f094c4a6512eff8943ec4c6ebefeae6360ceada"
+    },
+    {
+      "Package": "libzstd1",
+      "Version": "1.5.4+dfsg2-5",
+      "Filename": "pool/main/libz/libzstd/libzstd1_1.5.4+dfsg2-5_amd64.deb",
+      "SHA256": "6315b5ac38b724a710fb96bf1042019398cb656718b1522279a5185ed39318fa"
+    },
+    {
+      "Package": "liblz4-1",
+      "Version": "1.9.4-1",
+      "Filename": "pool/main/l/lz4/liblz4-1_1.9.4-1_amd64.deb",
+      "SHA256": "64cde86cef1deaf828bd60297839b59710b5cd8dc50efd4f12643caaee9389d3"
+    },
+    {
+      "Package": "libpcre2-8-0",
+      "Version": "10.42-1",
+      "Filename": "pool/main/p/pcre2/libpcre2-8-0_10.42-1_amd64.deb",
+      "SHA256": "030db54f4d76cdfe2bf0e8eb5f9efea0233ab3c7aa942d672c7b63b52dbaf935"
+    },
+    {
+      "Package": "libsystemd0",
+      "Version": "252.39-1~deb12u2",
+      "Filename": "pool/main/s/systemd/libsystemd0_252.39-1~deb12u2_amd64.deb",
+      "SHA256": "013c07514a9e4933b2d5c098018695a6aa42d085dbc483ce2c094a954c8a1b0a"
+    },
+    {
+      "Package": "libx11-xcb1",
+      "Version": "2:1.8.4-2+deb12u2",
+      "Filename": "pool/main/libx/libx11/libx11-xcb1_1.8.4-2+deb12u2_amd64.deb",
+      "SHA256": "f5da45e1d881a793250a96613f28c471a248877f1a0f18a5c90e2a620a76c898"
+    }
+  ]
+}
