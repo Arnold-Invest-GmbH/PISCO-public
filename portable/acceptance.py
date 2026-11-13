@@ -36,8 +36,14 @@ def main():
         clean_path = os.pathsep.join((str(system / 'System32'), str(system))) if os.name == 'nt' else '/no-external-python'
         env = dict(os.environ, QT_QPA_PLATFORM='offscreen', PATH=clean_path)
         started = time.monotonic()
+        print('Starting ' + label + ' ...', flush=True)
         with (output / (label + '.txt')).open('w') as log:
-            result = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT, env=env)
+            try:
+                result = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT, env=env, timeout=600)
+            except subprocess.TimeoutExpired:
+                log.flush()
+                print((output / (label + '.txt')).read_text(encoding='utf-8', errors='replace')[-12000:], flush=True)
+                raise
         records.append({'name': label, 'command': command, 'exit_code': result.returncode, 'seconds': time.monotonic()-started})
         print(label, result.returncode, flush=True)
         if result.returncode:

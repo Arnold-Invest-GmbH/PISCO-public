@@ -4,7 +4,9 @@
 #include <windows.h>
 #include <wchar.h>
 #include <stdlib.h>
+#include <stdio.h>
 int WINAPI wWinMain(HINSTANCE instance, HINSTANCE previous, PWSTR command, int show) {
+    SetErrorMode(SEM_FAILCRITICALERRORS | SEM_NOGPFAULTERRORBOX | SEM_NOOPENFILEERRORBOX);
     wchar_t root[32768], python[32768], script[32768];
     DWORD size = GetModuleFileNameW(NULL, root, 32768);
     if (!size || size >= 32768) return 1;
@@ -27,9 +29,14 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE previous, PWSTR command, int s
     startup.hStdError=GetStdHandle(STD_ERROR_HANDLE);
     PROCESS_INFORMATION process={0};
     BOOL ok=CreateProcessW(python,line,NULL,NULL,TRUE,CREATE_NO_WINDOW,NULL,root,&startup,&process);
+    DWORD error=ok ? 0 : GetLastError();
     free(line);
     if(!ok) {
-        MessageBoxW(NULL,L"PISCO could not start its included runtime. Extract the complete archive first.",L"PISCO",MB_ICONERROR);
+        wchar_t message[1024];
+        swprintf(message,1024,L"PISCO could not start its included runtime (Windows error %lu). Extract the complete archive first.",error);
+        fwprintf(stderr,L"%ls\nRuntime: %ls\n",message,python);
+        /* Command-line checks must fail with an exit code, not await a dialog. */
+        if(!*command) MessageBoxW(NULL,message,L"PISCO",MB_ICONERROR);
         return 1;
     }
     WaitForSingleObject(process.hProcess,INFINITE);
