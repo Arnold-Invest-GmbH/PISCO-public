@@ -100,6 +100,7 @@ def main():
     p.add_argument('--platform', choices=('windows-x86_64', 'macos-arm64'), required=True)
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--cache', type=Path, required=True)
+    p.add_argument('--release-id', help='Release identifier; defaults to the repository manifest.')
     args = p.parse_args()
     windows = args.platform.startswith('windows')
     if windows != (sys.platform == 'win32') or (not windows and sys.platform != 'darwin'):
@@ -192,7 +193,7 @@ def main():
             if hashlib.sha256(zipped.read('documentation/source/' + name)).hexdigest() != expected:
                 raise RuntimeError('Archived scientific source differs: ' + name)
     manifest = {'package': 'PISCO paper reproduction', 'platform': args.platform,
-        'status': 'candidate; awaiting target-platform acceptance', 'release_id': 'r2-2026-11-13',
+        'status': 'candidate; awaiting target-platform acceptance', 'release_id': args.release_id or publication['release_id'],
         'python_executable': python.relative_to(bundle).as_posix(),
         'launcher_executable': 'PISCO.exe' if windows else '../MacOS/PISCO',
         'source_sha256': sources, 'results_archive': data, 'runtime_distribution': runtime,

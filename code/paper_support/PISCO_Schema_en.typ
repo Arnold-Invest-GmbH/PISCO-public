@@ -1,12 +1,16 @@
-// Detailed workflow schema — quiet, simplified variant.
+// Detailed workflow schema — R2 content correction of the R1 layout.
+// Layout, colours and geometry are those of code/paper_support/PISCO_Schema_en.typ;
+// only labels that contradicted the R2 method description are changed
+// (displacement-only surrogate, discrete equilibrium residual, U^T F score,
+// FEM-verified stopping, no optimality claim, British spelling).
 // Five vertically stacked phases, four entity colors, generous whitespace.
 // Surrogate outputs are explicitly wired to the score-function inputs.
 //
-//   0  Initialization        (dataset + generator)
+//   0  Initialisation        (dataset + generator)
 //   1  Train surrogate
 //   2  Build critic           (score ∘ surrogate)
-//   3  Multi-start optimization in latent space
-//   4  FEM revalidation + convergence test  (active loop back to 1)
+//   3  Multi-start optimisation of the search vector
+//   4  FEM re-evaluation + stopping test  (active loop back to 1)
 
 #import "@preview/cetz:0.3.4": canvas, draw
 
@@ -64,7 +68,7 @@
   let badge(x, y, w, label, fg, bg) = {
     rect((x, y - 0.18), (x + w, y + 0.18),
          fill: bg, stroke: fg + 0.5pt, radius: 0.07)
-    content((x + w/2, y), text(size: 6pt, weight: "bold", fill: fg)[#label])
+    content((x + w/2, y), text(size: 6.8pt, weight: "bold", fill: fg)[#label])
   }
 
   // ────────────────────────────────────────────────────────────────────
@@ -79,7 +83,7 @@
   let y3_top =  4.70
   let y3_bot =  1.30
   let y4_top =  0.40
-  let y4_bot = -3.30
+  let y4_bot = -3.60
 
   // ────────────────────────────────────────────────────────────────────
   //  Compact legend — four entity colors + warm accent for final output
@@ -96,22 +100,22 @@
   rect((0.5, y0_bot), (16.5, y0_top), fill: cstep, stroke: cstep-s, radius: 0.18)
   step-num(1.1, y0_top - 0.40, "0")
   content((8.50, y0_top - 0.40), text(size: 9pt, weight: "bold")[
-    Initialization — dataset and generator])
+    Initialisation — dataset and generator])
 
   rect((1.5, 14.95), (8.0, 16.45), fill: white, stroke: cdark + 0.6pt, radius: 0.10)
   content((4.75, 16.10), text(size: 7pt, weight: "bold")[Initial dataset $D$])
-  content((4.75, 15.65), text(size: 6.3pt, fill: cg)[
-    $N$ designs (random or short-SIMP) + FEM])
-  content((4.75, 15.20), text(size: 6.2pt, fill: cg)[
-    $D = \{(d_i, J_i)\}_(i=1)^N$])
+  content((4.75, 15.65), text(size: 6.8pt, fill: cg)[
+    $N$ designs (random or short SIMP runs) + FEM])
+  content((4.75, 15.20), text(size: 6.8pt, fill: cg)[
+    $D = {(d_i, J_i)}_(i=1)^N$; preliminary FEM counted])
 
   rect((9.0, 14.95), (15.5, 16.45), fill: cfr, stroke: cr + 0.8pt, radius: 0.10)
   content((12.25, 16.10), text(size: 7pt, weight: "bold", fill: cr)[
     Choose generator $G$ once])
-  content((12.25, 15.65), text(size: 6.2pt, fill: cg)[
-    Case 1: $G_"param"(a) = H_beta(phi_a(x))$])
-  content((12.25, 15.25), text(size: 6.2pt, fill: cg)[
-    Case 2: derive $G$ from $D$ as PCA or VAE decoder, fixed])
+  content((12.25, 15.65), text(size: 6.8pt, fill: cg)[
+    Case 1: analytical map, e.g. $H_beta (phi_a)$])
+  content((12.25, 15.25), text(size: 6.8pt, fill: cg)[
+    Case 2: fixed PCA / VAE decoder])
 
   // Arrow 0 → 1
   line((8.5, y0_bot), (8.5, y1_top),
@@ -127,25 +131,25 @@
 
   // Left column: two loss blocks
   rect((1.3, 11.85), (7.4, 12.75), fill: white, stroke: cg + 0.6pt, radius: 0.08)
-  content((4.35, 12.50), text(size: 6.6pt, weight: "bold")[
+  content((4.35, 12.50), text(size: 6.8pt, weight: "bold")[
     Data loss $cal(L)_"data"$])
-  content((4.35, 12.10), text(size: 6.0pt, fill: cg)[
-    $1/abs(D) sum_i (hat(J)(d_i) - J_i)^2$  (via FEM quadrature)])
+  content((4.35, 12.10), text(size: 6.8pt, fill: cg)[
+    $1/abs(D) sum_i (hat(J)(d_i) - J_i)^2$  (FEM labels)])
 
   rect((1.3, 10.55), (7.4, 11.55), fill: white, stroke: cg + 0.6pt, radius: 0.08)
-  content((4.35, 11.30), text(size: 6.6pt, weight: "bold")[
-    Physics residual $cal(L)_"phys"$])
-  content((4.35, 10.85), text(size: 6.0pt, fill: cg)[
-    $norm(nabla dot hat(sigma) + b)^2 + norm(hat(sigma) - sigma(hat(u)))^2$  at collocation points])
+  content((4.35, 11.30), text(size: 6.8pt, weight: "bold")[
+    Optional equilibrium loss $cal(L)_"phys"$])
+  content((4.35, 10.85), text(size: 6.8pt, fill: cg)[
+    $1/abs(D) sum_i norm((K_i hat(U)_i - F)_"free")^2 \/ (norm(F)^2 + 10^(-12))$])
 
   // Right column: the surrogate itself
   rect((8.4, 10.55), (15.5, 12.95), fill: cfb, stroke: cb + 1.2pt, radius: 0.10)
   content((11.95, 12.65), text(size: 7.5pt, weight: "bold", fill: cb)[
-    Surrogate $S_omega$ (PINN)])
+    Surrogate $S_omega$ (neural network)])
   // Same dimensions as the surrogate icon in step 2 — same network, same look.
   nn-icon(11.95, 11.70, 3.2, 0.95, (3, 5, 5, 4), 0.06, cb)
-  content((11.95, 10.85), text(size: 6.2pt, fill: cb)[
-    $(d, x) arrow.r (hat(u)(x), hat(sigma)(x))$])
+  content((11.95, 10.85), text(size: 6.8pt, fill: cb)[
+    $d arrow.r hat(U)(d)$  (nodal displacements)])
 
   // Loss arrows into the surrogate
   line((7.4, 12.30), (8.4, 12.10),
@@ -157,7 +161,7 @@
   line((8.5, y1_bot), (8.5, y2_top),
        mark: (end: ">", size: 0.16), stroke: cdark + 1.2pt)
   content((9.5, (y1_bot + y2_top)/2), anchor: "west",
-    text(size: 6.3pt, fill: cb)[$omega^*$ frozen])
+    text(size: 6.8pt, fill: cb)[$omega^*$ frozen])
 
   // ════════════════════════════════════════════════════════════════════
   //  STEP 2 — Build critic (surrogate → score, purple container)
@@ -171,7 +175,7 @@
 
   // Critic container (purple, solid) — surrounds the two inner boxes
   rect((1.5, 5.95), (13.5, 8.55), fill: cfkr, stroke: ckri + 1.4pt, radius: 0.14)
-  content((7.5, 8.30), text(size: 6.5pt, weight: "bold", fill: ckri)[
+  content((7.5, 8.30), text(size: 6.8pt, weight: "bold", fill: ckri)[
     Critic $C_omega = cal(B) compose S_(omega^*)$])
 
   // Surrogate box (within the critic container, left)
@@ -187,8 +191,8 @@
   nn-icon(surr_cx, surr_cy, surr_bw, surr_bh, (3, 5, 5, 4), 0.06, cb)
   let surr_out_x = nn-xs(surr_cx, surr_bw, 4).last()
   let surr_out_ys = nn-ys(surr_cy, surr_bh, 4)
-  content((surr_cx, 6.40), text(size: 5.6pt, fill: cb)[
-    $hat(u), hat(sigma)$])
+  content((surr_cx, 6.40), text(size: 6.8pt, fill: cb)[
+    $hat(U)$])
 
   // Score box (within the critic container, right)
   let bew_cx = 9.20
@@ -203,8 +207,8 @@
   let bew_in_x = nn-xs(bew_cx, bew_bw, 2).first()
   let bew_in_ys = nn-ys(bew_cy, bew_bh, 4)
   let bew_out_x = nn-xs(bew_cx, bew_bw, 2).last()
-  content((bew_cx, 6.40), text(size: 5.6pt, fill: cpde)[
-    fixed $w_k$])
+  content((bew_cx, 6.40), text(size: 6.8pt, fill: cpde)[
+    $hat(U)^top F$, fixed])
 
   // Node-by-node connections from surrogate output to score input
   // (all four explicit, identical y each)
@@ -224,33 +228,33 @@
 
   // Annotation outside the container (right)
   content((14.00, bew_cy + 0.20), anchor: "west",
-    text(size: 6.0pt, fill: cg)[
+    text(size: 6.8pt, fill: cg)[
       scalar score])
   content((14.00, bew_cy - 0.20), anchor: "west",
-    text(size: 6.0pt, fill: cg)[
-      $hat(J) = C_omega(d)$])
+    text(size: 6.8pt, fill: cg)[
+      $hat(J) = C_omega (d)$])
 
   // Arrow 2 → 3
   line((8.5, y2_bot), (8.5, y3_top),
        mark: (end: ">", size: 0.16), stroke: cdark + 1.2pt)
   content((9.5, (y2_bot + y3_top)/2), anchor: "west",
-    text(size: 6.3pt, fill: ckri)[$C_omega$ frozen])
+    text(size: 6.8pt, fill: ckri)[$C_omega$ frozen])
 
   // ════════════════════════════════════════════════════════════════════
-  //  STEP 3 — Multi-start optimization in latent space
+  //  STEP 3 — Multi-start optimisation of the search vector
   // ════════════════════════════════════════════════════════════════════
   rect((0.5, y3_bot), (16.5, y3_top), fill: cstep, stroke: cstep-s, radius: 0.18)
   step-num(1.1, y3_top - 0.40, "3")
   content((8.50, y3_top - 0.40), text(size: 9pt, weight: "bold")[
-    Multi-start optimization in latent space])
+    Multi-start optimisation of the search vector $z$])
 
-  // Optimization chain: z → G → d̂ → C_omega → J̃
+  // Optimisation chain: z → G → d → C_omega → J-hat
   // Slightly taller box so the caption is clearly separated from the inner boxes
   rect((1.4, 2.05), (13.6, 4.05),
        fill: white,
        stroke: (paint: cdark, thickness: 0.7pt, dash: "dashed"), radius: 0.10)
-  content((7.5, 3.85), text(size: 6.3pt, fill: cg)[
-    frozen chain — only the search vector $z$ is updated by gradient])
+  content((7.5, 3.70), text(size: 6.8pt, fill: cg)[
+    Minimise $hat(J) + R(z)$; $R(z) = lambda_z norm(z)^2$ in case 2, $0$ otherwise])
 
   // z on the left
   content((1.95, 2.95), text(size: 7pt, weight: "bold")[$z$])
@@ -261,18 +265,18 @@
   rect((3.20, 2.30), (6.10, 3.50), fill: cfr, stroke: cr + 1.0pt, radius: 0.08)
   content((4.65, 3.20), text(size: 6.8pt, weight: "bold", fill: cr)[
     Generator $G$])
-  content((4.65, 2.55), text(size: 6.0pt, fill: cg)[$hat(d) = G(z)$])
+  content((4.65, 2.55), text(size: 6.8pt, fill: cg)[$d = G(z)$])
 
   // d̂
   line((6.10, 2.95), (7.30, 2.95),
        mark: (end: ">", size: 0.13), stroke: cdark + 0.8pt)
-  content((6.70, 3.20), text(size: 6pt, fill: cg)[$hat(d)$])
+  content((6.70, 3.20), text(size: 6.8pt, fill: cg)[$d$])
 
   // Critic box (purple)
   rect((7.30, 2.30), (10.40, 3.50), fill: cfkr, stroke: ckri + 1.0pt, radius: 0.08)
   content((8.85, 3.20), text(size: 6.8pt, weight: "bold", fill: ckri)[
     Critic $C_(omega^*)$])
-  content((8.85, 2.55), text(size: 6.0pt, fill: cg)[
+  content((8.85, 2.55), text(size: 6.8pt, fill: cg)[
     $cal(B) compose S_(omega^*)$])
 
   // J̃
@@ -283,44 +287,44 @@
   // Gradient backwards (dashed, dark gray) — clearly under the chain
   line((12.10, 2.95), (12.85, 2.95),
        stroke: cdark + 0.8pt)
-  line((12.85, 2.95), (12.85, 1.70),
+  line((12.85, 2.95), (12.85, 1.85),
        stroke: cdark + 0.8pt)
-  line((12.85, 1.70), (1.95, 1.70),
+  line((12.85, 1.85), (1.95, 1.85),
        stroke: (paint: cdark, thickness: 0.8pt, dash: "dashed"))
-  line((1.95, 1.70), (1.95, 2.65),
+  line((1.95, 1.85), (1.95, 2.65),
        mark: (end: ">", size: 0.16),
        stroke: (paint: cdark, thickness: 0.8pt, dash: "dashed"))
-  content((7.5, 1.50), text(size: 6.0pt, fill: cdark)[
-    $partial cal(L) \/ partial z$  — gradient backward through both frozen networks])
+  content((7.5, 1.50), text(size: 6.8pt, fill: cdark)[
+    $nabla_z (hat(J) + R(z))$ — back through the fixed generator and critic])
 
   // Arrow 3 → 4: the top-n best candidates go to revalidation
   line((8.5, y3_bot), (8.5, y4_top),
        mark: (end: ">", size: 0.16), stroke: cdark + 1.2pt)
   content((9.5, (y3_bot + y4_top)/2), anchor: "west",
-    text(size: 6.3pt, fill: cdark)[Top-$n_"top"$ candidates $hat(d)^((1)) , dots, hat(d)^((n_"top"))$])
+    text(size: 6.8pt, fill: cdark)[Top-$n_"top"$ by $hat(J) + R(z)$])
 
   // ════════════════════════════════════════════════════════════════════
-  //  STEP 4 — FEM revalidation + convergence test
+  //  STEP 4 — FEM re-evaluation + stopping test
   // ════════════════════════════════════════════════════════════════════
   rect((0.5, y4_bot), (16.5, y4_top), fill: cstep, stroke: cstep-s, radius: 0.18)
   step-num(1.1, y4_top - 0.40, "4")
   content((8.50, y4_top - 0.40), text(size: 9pt, weight: "bold")[
-    FEM revalidation and convergence test])
+    FEM re-evaluation and stopping test])
 
   // Revalidation chain as a horizontal flow in its own box
   rect((1.4, -1.30), (13.6, -0.40), fill: white, stroke: cdark + 0.5pt, radius: 0.10)
 
   // 1) Input: top-n candidates (small box)
   rect((1.65, -1.10), (3.40, -0.60), fill: cstep, stroke: cdark + 0.6pt, radius: 0.06)
-  content((2.525, -0.85), text(size: 6.2pt, weight: "bold")[
-    Top-$n_"top"$ $hat(d)$])
+  content((2.525, -0.85), text(size: 6.8pt, weight: "bold")[
+    Top-$n_"top"$ $d$])
 
   line((3.40, -0.85), (4.05, -0.85),
        mark: (end: ">", size: 0.13), stroke: cdark + 0.7pt)
 
   // 2) FEM solver
   rect((4.05, -1.10), (5.55, -0.60), fill: cstep, stroke: cdark + 0.6pt, radius: 0.06)
-  content((4.80, -0.85), text(size: 6.2pt, weight: "bold")[
+  content((4.80, -0.85), text(size: 6.8pt, weight: "bold")[
     FEM $cal(S)$])
 
   line((5.55, -0.85), (6.20, -0.85),
@@ -329,32 +333,32 @@
   // 3) True (J, ψ)
   rect((6.20, -1.10), (8.10, -0.60), fill: white,
        stroke: cg + 0.6pt, radius: 0.06)
-  content((7.15, -0.85), text(size: 6.2pt, weight: "bold")[
-    true $(J, psi)$])
+  content((7.15, -0.85), text(size: 6.8pt, weight: "bold")[
+    FEM $(J, psi)$])
 
   line((8.10, -0.85), (8.75, -0.85),
        mark: (end: ">", size: 0.13), stroke: cdark + 0.7pt)
 
   // 4) Dataset grows
   rect((8.75, -1.10), (13.35, -0.60), fill: white, stroke: cg + 0.6pt, radius: 0.06)
-  content((11.05, -0.85), text(size: 6.2pt, weight: "bold")[
-    $D arrow.l D union {(hat(d), J)}$])
+  content((11.05, -0.85), text(size: 6.8pt, weight: "bold")[
+    $D arrow.l D union {(d, J)}$])
 
-  // Arrow from revalidation to the convergence decision
+  // Arrow from re-evaluation to the stopping decision
   line((8.5, -1.30), (8.5, -1.75),
        mark: (end: ">", size: 0.14), stroke: cdark + 0.9pt)
 
-  // ── Convergence decision (diamond) ──────────────────────────────────
+  // ── Stopping decision on FEM-verified values (diamond) ──────────────
   let kx = 8.5
-  let ky = -2.50
-  let khw = 2.2
-  let khh = 0.70
+  let ky = -2.60
+  let khw = 2.7
+  let khh = 0.85
   line((kx, ky + khh), (kx + khw, ky), (kx, ky - khh), (kx - khw, ky), close: true,
        fill: white, stroke: cdark + 1.0pt)
-  content((kx, ky + 0.20), text(size: 6.6pt, weight: "bold", fill: cdark)[
-    Convergence test])
-  content((kx, ky - 0.22), text(size: 5.8pt, fill: cdark)[
-    $abs(Delta hat(J)) < epsilon$  or  $t = T_max$ ?])
+  content((kx, ky + 0.20), text(size: 6.8pt, weight: "bold", fill: cdark)[
+    Stop?])
+  content((kx, ky - 0.22), text(size: 6.8pt, fill: cdark)[
+    See Algorithm 1])
 
   // ── "no" → loop back INTO step 1 (surrogate is retrained) ────────────
   // The arrow ends clearly INSIDE step 1, not in the gap to step 2
@@ -367,14 +371,14 @@
        mark: (end: ">", size: 0.18),
        stroke: (paint: cdark, thickness: 1.2pt, dash: "dashed"))
   content((kx - khw - 0.05, ky + 0.30), anchor: "east",
-    text(size: 6.4pt, weight: "bold", fill: cdark)[no])
+    text(size: 6.8pt, weight: "bold", fill: cdark)[no])
   content((-0.05, (y1_mid + ky)/2), anchor: "east",
-    text(size: 6.0pt, weight: "bold", fill: cdark)[
+    text(size: 6.8pt, weight: "bold", fill: cdark)[
       Loop:\ $D$ has been\ extended\ $arrow$ surrogate\ retrains on $D$])
 
   // ── "yes" → on to the result ────────────────────────────────────────
   content((kx + 0.25, ky - khh - 0.15), anchor: "west",
-    text(size: 6.4pt, weight: "bold", fill: cwarm)[yes])
+    text(size: 6.8pt, weight: "bold", fill: cwarm)[yes])
   line((kx, ky - khh), (kx, -4.00),
        mark: (end: ">", size: 0.16), stroke: cwarm + 1.2pt)
 
@@ -386,7 +390,7 @@
   circle((4.55, -4.50), radius: 0.32, fill: cwarm, stroke: none)
   content((4.55, -4.50), text(size: 8pt, fill: white, weight: "bold")[✓])
   content((8.85, -4.35), text(size: 7.5pt, weight: "bold", fill: cwarm)[
-    Optimal feasible design $d^* = G(z^*)$])
-  content((8.85, -4.75), text(size: 6.0pt, fill: cg)[
-    after $T$ loop cycles, $approx N + T dot n_"top"$ FEM calls])
+    Best FEM-verified design $d^*_"best"$])
+  content((8.85, -4.75), text(size: 6.8pt, fill: cg)[
+    after $T$ cycles: initial FEM calls $+ thick T dot n_"top"$ active evaluations])
 })

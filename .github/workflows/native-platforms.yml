@@ -2,6 +2,12 @@ name: Native Windows and macOS packages
 
 on:
   workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Existing draft release for the validated packages
+        required: true
+        default: r2-2026-11-16
+        type: string
 
 permissions:
   contents: read
@@ -22,6 +28,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 45
     env:
+      PISCO_RELEASE_ID: ${{ inputs.release_tag }}
       PISCO_CI_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
@@ -33,6 +40,7 @@ jobs:
           ${{ matrix.bootstrap }} portable/build_native.py --platform '${{ matrix.platform }}'
           --output '${{ runner.temp }}/PISCO-${{ matrix.platform }}'
           --cache '${{ runner.temp }}/build-cache'
+          --release-id "$PISCO_RELEASE_ID"
       - name: Windows offline acceptance
         if: runner.os == 'Windows'
         shell: pwsh
@@ -97,4 +105,5 @@ jobs:
       - name: Publish the tested artifacts
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload r2-2026-11-13 --repo '${{ github.repository }}' delivery/* --clobber
+          PISCO_RELEASE_ID: ${{ inputs.release_tag }}
+        run: gh release upload "$PISCO_RELEASE_ID" --repo '${{ github.repository }}' delivery/* --clobber

@@ -1,5 +1,9 @@
-// Wiring in the latent optimization step:
-// Generator → Surrogate → Score — all three frozen.
+// Wiring in the candidate-search step — R2 content correction of the R1 layout:
+// Generator → Surrogate → Score — all three frozen (upper chain),
+// followed by the FEM feedback path that closes the active loop (lower row).
+// Layout, colours and geometry of the upper chain are those of
+// code/paper_support/Schema_Verschaltung_Extrakt_en.typ; only labels that
+// contradicted the R2 method description are changed.
 // Surrogate + score are explicitly grouped into a critic container.
 //
 // Follows the color coding from PISCO_Schema_en.typ:
@@ -54,7 +58,7 @@
   let badge(x, y, w, label, fg, bg) = {
     rect((x, y - 0.18), (x + w, y + 0.18),
          fill: bg, stroke: fg + 0.6pt, radius: 0.07)
-    content((x + w/2, y), text(size: 6pt, weight: "bold", fill: fg)[#label])
+    content((x + w/2, y), text(size: 6.8pt, weight: "bold", fill: fg)[#label])
   }
 
   // ════════════════════════════════════════════════════════════════════
@@ -99,16 +103,16 @@
   //  Title
   // ════════════════════════════════════════════════════════════════════
   content((8.50, 7.30), text(size: 9pt, weight: "bold")[
-    Latent optimization step — wiring Generator $arrow.r$
+    Candidate search — wiring Generator $arrow.r$
     Surrogate $arrow.r$ Score])
-  content((8.50, 6.95), text(size: 6.5pt, fill: cg)[
-    all three components frozen — only the search vector $z$ is updated])
+  content((8.50, 6.95), text(size: 6.8pt, fill: cg)[
+    Fixed parameters; $R(z) = lambda_z norm(z)^2$ in case 2, $0$ otherwise])
 
   // ════════════════════════════════════════════════════════════════════
   //  Input z (far left)
   // ════════════════════════════════════════════════════════════════════
   content((-0.50, 4.30), text(size: 9pt, weight: "bold")[$z$])
-  content((-0.50, 3.95), text(size: 5.5pt, fill: cg)[search vector])
+  content((-0.50, 3.95), text(size: 6.8pt, fill: cg)[search vector])
 
   // ════════════════════════════════════════════════════════════════════
   //  CRITIC CONTAINER (purple, encloses surrogate + score)
@@ -126,12 +130,12 @@
        fill: cfr, stroke: cr + 1.6pt, radius: 0.10)
   content((g_cx, 6.10), text(size: 7.5pt, weight: "bold", fill: cr)[
     Generator $G$])
-  content((g_cx, 5.65), text(size: 5.5pt, fill: cg)[
-    Case 1: $G_"param"(a)$])
-  content((g_cx, 5.30), text(size: 5.5pt, fill: cg)[
+  content((g_cx, 5.65), text(size: 6.8pt, fill: cg)[
+    Case 1: fixed analytical map])
+  content((g_cx, 5.30), text(size: 6.8pt, fill: cg)[
     Case 2: PCA / VAE decoder])
   nn-icon(g_cx, cy_net, g_bw, bh_net, (2, 4, 5, 4, 3), nr, cr)
-  content((g_cx, 2.85), text(size: 7pt, fill: cr)[$hat(d) = G(z)$])
+  content((g_cx, 2.85), text(size: 7pt, fill: cr)[$d = G(z)$])
   badge(1.55, 2.20, 1.5, [$G$ frozen], cr, cfr)
 
   // ════════════════════════════════════════════════════════════════════
@@ -142,11 +146,11 @@
        fill: cfb, stroke: cb + 1.4pt, radius: 0.10)
   content((s_cx, 5.60), text(size: 7.5pt, weight: "bold", fill: cb)[
     Surrogate $S_(omega^*)$])
-  content((s_cx, 5.25), text(size: 5.5pt, fill: cg)[
-    PINN — learns fields $hat(u), hat(sigma)$])
+  content((s_cx, 5.25), text(size: 6.8pt, fill: cg)[
+    nodal displacements])
   nn-icon(s_cx, cy_net, s_bw, bh_net, (3, 5, 5, 4), nr, cb)
-  content((s_cx, 2.85), text(size: 6.4pt, fill: cb)[
-    $(hat(u), hat(sigma)) = S_(omega^*)(hat(d))$])
+  content((s_cx, 2.85), text(size: 6.8pt, fill: cb)[
+    $hat(U) = S_(omega^*) (d)$])
   badge(6.50, 2.30, 1.4, [$omega^*$ fixed], cb, cfb)
 
   // ════════════════════════════════════════════════════════════════════
@@ -156,12 +160,12 @@
        fill: cfpde, stroke: cpde + 1.4pt, radius: 0.10)
   content((b_cx, 5.60), text(size: 7.5pt, weight: "bold", fill: cpde)[
     Score $cal(B)$])
-  content((b_cx, 5.25), text(size: 5.5pt, fill: cg)[
-    analytic — weighted sum])
+  content((b_cx, 5.25), text(size: 6.8pt, fill: cg)[
+    analytic — external work])
   nn-icon(b_cx, cy_net, b_bw, bh_net, (4, 1), nr, cpde)
-  content((b_cx, 2.85), text(size: 6.0pt, fill: cpde)[
-    $hat(J) = sum_k w_k thin overline(t)_k dot hat(u)_k$])
-  badge(11.55, 2.30, 2.4, [fixed quadrature $w_k$], cpde, cfpde)
+  content((b_cx, 2.85), text(size: 6.8pt, fill: cpde)[
+    $hat(J) = hat(U)^top F$])
+  badge(11.55, 2.30, 2.75, [fixed load vector $F$], cpde, cfpde)
 
   // ════════════════════════════════════════════════════════════════════
   //  OUTPUT BOX hat(J) (warm) — far right
@@ -205,6 +209,49 @@
   line((14.70, 1.20), (3.30, 1.20),
        mark: (end: ">", size: 0.22),
        stroke: (paint: cdark, thickness: 1.2pt, dash: "dashed"))
-  content((8.50, 0.80), text(size: 6.3pt, weight: "bold", fill: cdark)[
-    $partial cal(L) \/ partial z$ — gradient backward through all three frozen components])
+  content((8.50, 0.80), text(size: 6.8pt, weight: "bold", fill: cdark)[
+    $nabla_z (hat(J) + R(z))$ — update search variables through the fixed components])
+
+  // ════════════════════════════════════════════════════════════════════
+  //  LOWER PATH — FEM feedback after the search (not differentiated).
+  //  Only the selected candidates are evaluated by the FEM, appended to
+  //  the dataset, and used to retrain the surrogate for the next cycle.
+  // ════════════════════════════════════════════════════════════════════
+  let cstep   = rgb("#fafbfc")
+  let cstep-s = rgb("#cbd2d9") + 0.5pt
+  rect((1.30, -2.35), (14.90, 0.25), fill: cstep, stroke: cstep-s, radius: 0.12)
+  content((8.10, -0.05), text(size: 6.8pt, weight: "bold", fill: cdark)[
+    After the search — FEM feedback closes the active loop])
+
+  // 1) Select and verify
+  rect((1.60, -2.05), (5.30, -0.45), fill: white, stroke: cdark + 0.8pt, radius: 0.08)
+  content((3.45, -0.80), text(size: 7pt, weight: "bold", fill: cdark)[
+    Select and verify])
+  content((3.45, -1.25), text(size: 6.8pt, fill: cg)[
+    top-$n_"top"$ by $hat(J) + R(z)$])
+  content((3.45, -1.65), text(size: 6.8pt, fill: cg)[
+    FEM $cal(S)$ returns the true $J$])
+
+  // 2) Extend the dataset
+  rect((6.30, -2.05), (10.30, -0.45), fill: white, stroke: cdark + 0.8pt, radius: 0.08)
+  content((8.30, -0.80), text(size: 7pt, weight: "bold", fill: cdark)[
+    Extend the dataset])
+  content((8.30, -1.25), text(size: 6.8pt, fill: cg)[
+    $D arrow.l D union {(d, J)}$])
+  content((8.30, -1.65), text(size: 6.8pt, fill: cg)[
+    update best verified design])
+
+  // 3) Retrain the surrogate (blue = surrogate)
+  rect((11.30, -2.05), (14.60, -0.45), fill: cfb, stroke: cb + 1.0pt, radius: 0.08)
+  content((12.95, -0.80), text(size: 7pt, weight: "bold", fill: cb)[
+    Retrain the surrogate])
+  content((12.95, -1.25), text(size: 6.8pt, fill: cg)[
+    update $omega$ using $D$])
+  content((12.95, -1.65), text(size: 6.8pt, fill: cg)[
+    for the next search cycle])
+
+  line((5.30 + 0.05, -1.25), (6.30 - 0.05, -1.25),
+       mark: (end: ">", size: 0.14), stroke: cdark + 1.1pt)
+  line((10.30 + 0.05, -1.25), (11.30 - 0.05, -1.25),
+       mark: (end: ">", size: 0.14), stroke: cdark + 1.1pt)
 })
