@@ -31,7 +31,7 @@
     "No universal or cross-architecture bitwise equality guarantee.",
     "Original full publication results were computed in their recorded host environment."
   ],
-  "release_id": "r2-2026-11-13",
+  "release_id": "r2-2026-11-16",
   "validation": {
     "report": "validation/summary.json",
     "independent_editorial_confirmation": false
@@ -39,5 +39,10 @@
   "delivery": {
     "application_zip": "PISCO-linux-x86_64.zip",
     "results_included": true
+  },
+  "documentation_update": {
+    "base_release": "r2-2026-11-13",
+    "scope": "Updated schematic templates only; runtime, numerical sources and measured data unchanged.",
+    "validation_report": "validation/update-2026-11-16.json"
   }
 }

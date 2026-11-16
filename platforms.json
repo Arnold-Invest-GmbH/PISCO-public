@@ -1,5 +1,5 @@
 {
-  "release_id": "r2-2026-11-13",
+  "release_id": "r2-2026-11-16",
   "source_sha256": {
     "solvers.py": "cdd701f69e8ec906b55b9a2c6a209926bd5da894971d39abfe6147beea5b4290",
     "reproduce_all.py": "cecf8c2401c822e8530de39822bd19cb6d53331aaffcac42cd52c73bd656de52"
@@ -11,38 +11,40 @@
     "uncompressed_bytes": 930016278,
     "file_count": 4249,
     "archive_member_filename": "results.zip",
-    "url": "https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-13/PISCO-results.zip"
+    "url": "https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-16/PISCO-results.zip"
   },
   "applications": [
     {
       "platform": "windows-x86_64",
       "filename": "PISCO-windows-x86_64.zip",
-      "bytes": 640554388,
-      "sha256": "fe83dc1ac998a2f09c48a858e79c2aae676614c645c293a485f323d11a2d290e",
-      "url": "https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-13/PISCO-windows-x86_64.zip",
-      "build_commit": "7cd763550ee39cab7271086fff8979aebfe1837c",
+      "bytes": 640555785,
+      "sha256": "72a16bf8b236b5ecfd352837f141f2b4a5316ba3cc9e43cc5b7d11d4085e3d7a",
+      "url": "https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-16/PISCO-windows-x86_64.zip",
+      "build_commit": "386b457051bfa6c126695060f2fb5cbbec2c5a38",
       "validation_report": "validation/windows-x86_64.json",
-      "receipt_url": "https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-13/release-windows-x86_64.json"
+      "receipt_url": "https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-16/release-windows-x86_64.json"
     },
     {
       "platform": "macos-arm64",
       "filename": "PISCO-macos-arm64.zip",
-      "bytes": 681925392,
-      "sha256": "290ce3f99d2f609dd4e4f6087da45fa7cbf807f673e75675d5e5291d13ffeef5",
-      "url": "https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-13/PISCO-macos-arm64.zip",
-      "build_commit": "7cd763550ee39cab7271086fff8979aebfe1837c",
+      "bytes": 681926813,
+      "sha256": "6c61a97570cddef95d80899f391d2753575670fe32b0aeed133b050abf07aa5d",
+      "url": "https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-16/PISCO-macos-arm64.zip",
+      "build_commit": "386b457051bfa6c126695060f2fb5cbbec2c5a38",
       "validation_report": "validation/macos-arm64.json",
-      "receipt_url": "https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-13/release-macos-arm64.json"
+      "receipt_url": "https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-16/release-macos-arm64.json"
     },
     {
       "platform": "linux-x86_64",
       "filename": "PISCO-linux-x86_64.zip",
-      "bytes": 790952477,
-      "sha256": "02a9fedfc9f2de4d214281a818dc9530dea1062dc361315513ed3fa1d0b59b18",
-      "url": "https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-13/PISCO-linux-x86_64.zip",
+      "bytes": 790959149,
+      "sha256": "52377f5a98c29d287430b0920ecaa046bbfd0ab39428f8e47ed8cd9e153275c0",
+      "url": "https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-16/PISCO-linux-x86_64.zip",
       "manifest": "release.json",
       "validation_report": "validation/summary.json",
-      "direct_script_validation_report": "validation/linux-direct-script.json"
+      "direct_script_validation_report": "validation/linux-direct-script.json",
+      "receipt_url": "https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-16/release-linux-x86_64.json",
+      "update_validation_report": "validation/linux-update-2026-11-16.json"
     }
   ],
   "scope": {

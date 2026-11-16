@@ -1,14 +1,14 @@
 {
   "filename": "PISCO-macos-arm64.zip",
-  "bytes": 681925392,
-  "sha256": "290ce3f99d2f609dd4e4f6087da45fa7cbf807f673e75675d5e5291d13ffeef5",
+  "bytes": 681926813,
+  "sha256": "6c61a97570cddef95d80899f391d2753575670fe32b0aeed133b050abf07aa5d",
   "platform": "macos-arm64",
   "source_sha256": {
     "solvers.py": "cdd701f69e8ec906b55b9a2c6a209926bd5da894971d39abfe6147beea5b4290",
     "reproduce_all.py": "cecf8c2401c822e8530de39822bd19cb6d53331aaffcac42cd52c73bd656de52"
   },
   "results_sha256": "1cf03ae1254e7a489b2c9da44f3ac5bf23ae49db63b6bcc36811d0718d158775",
-  "build_commit": "7cd763550ee39cab7271086fff8979aebfe1837c",
+  "build_commit": "386b457051bfa6c126695060f2fb5cbbec2c5a38",
   "zip_crc_passed": true,
   "extracted_zip_verification_passed": true,
   "validation": {
@@ -16,12 +16,12 @@
     "platform": "macos-arm64",
     "host": "macOS-15.8.2-arm64-arm-64bit-Mach-O",
     "machine": "arm64",
-    "build_commit": "7cd763550ee39cab7271086fff8979aebfe1837c",
+    "build_commit": "386b457051bfa6c126695060f2fb5cbbec2c5a38",
     "source_sha256": {
       "solvers.py": "cdd701f69e8ec906b55b9a2c6a209926bd5da894971d39abfe6147beea5b4290",
       "reproduce_all.py": "cecf8c2401c822e8530de39822bd19cb6d53331aaffcac42cd52c73bd656de52"
     },
-    "ci_run_url": "https://github.com/Arnold-Invest-GmbH/PISCO-public/actions/runs/43439909398",
+    "ci_run_url": "https://github.com/Arnold-Invest-GmbH/PISCO-public/actions/runs/43819980195",
     "saved_data": {
       "result_rows": 526,
       "artifact_count": 4248,

@@ -81,3 +81,25 @@ PNG rendering. Rendering may differ without changing stored numerical results.
 
 Completed target-system run: [43439909398](https://github.com/Arnold-Invest-GmbH/PISCO-public/actions/runs/43439909398).
 The Windows/macOS receipts record build commit `7cd763550ee39cab7271086fff8979aebfe1837c`.
+
+## Final manuscript and schematic update — 16 November 2026
+
+Release `r2-2026-11-16` contains the final clean manuscript and the corrected
+source templates for Figures 2 and 3. The numerical sources and saved dataset
+retain their original hashes. Windows and macOS were rebuilt and passed the
+complete acceptance sequence above, including fresh delivery-ZIP extraction, in
+[run 43819980195](https://github.com/Arnold-Invest-GmbH/PISCO-public/actions/runs/43819980195),
+using build commit `386b457051bfa6c126695060f2fb5cbbec2c5a38`.
+The current platform receipts identify those exact ZIPs. The November 13 run
+above records the earlier package checks.
+
+The Linux runtime, native launchers and numerical dependencies are byte-identical
+to the original validated distribution. Its updated templates passed another
+local acceptance sequence: saved-data checks, four/twelve-worker short runs,
+direct script comparison, stop/continue, offscreen GUI, 15 backend tests and
+all five actual driver JPEG templates. Its final ZIP was freshly extracted and
+the saved-data action passed again. See
+[`linux-update-2026-11-16.json`](../validation/linux-update-2026-11-16.json).
+This additional Linux run used the author laptop without network isolation;
+the original isolated Debian 12 and native-desktop evidence remains separate.
+No full numerical matrix was recomputed.

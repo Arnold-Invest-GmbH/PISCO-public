@@ -3,17 +3,21 @@
 The repository contains the current manuscript, numerical source, dependency
 locks, desktop interface and verification tools. The current dataset is supplied
 with every downloadable application and separately as
-[PISCO-results.zip](https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-13/PISCO-results.zip).
+[PISCO-results.zip](https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-16/PISCO-results.zip).
+
+The 16 November 2026 release synchronises the clean manuscript and the editable
+templates for Figures 2 and 3. Numerical solver sources and saved measurements
+retain their original hashes. The clean manuscript is also a separate release download.
 
 ## Start
 
-1. Download the ZIP matching your computer from the [release](https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/tag/r2-2026-11-13):
+1. Download the ZIP matching your computer from the [release](https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/tag/r2-2026-11-16):
 
    | System | Download | Open after extraction |
    | --- | --- | --- |
-   | Windows x64 | [PISCO-windows-x86_64.zip](https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-13/PISCO-windows-x86_64.zip) | `PISCO.exe` |
-   | macOS 14+, Apple Silicon | [PISCO-macos-arm64.zip](https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-13/PISCO-macos-arm64.zip) | `PISCO.app` |
-   | Linux x86-64, glibc 2.36+, X11/XWayland | [PISCO-linux-x86_64.zip](https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-13/PISCO-linux-x86_64.zip) | `PISCO` |
+   | Windows x64 | [PISCO-windows-x86_64.zip](https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-16/PISCO-windows-x86_64.zip) | `PISCO.exe` |
+   | macOS 14+, Apple Silicon | [PISCO-macos-arm64.zip](https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-16/PISCO-macos-arm64.zip) | `PISCO.app` |
+   | Linux x86-64, glibc 2.36+, X11/XWayland | [PISCO-linux-x86_64.zip](https://github.com/Arnold-Invest-GmbH/PISCO-public/releases/download/r2-2026-11-16/PISCO-linux-x86_64.zip) | `PISCO` |
 
 2. Extract the complete ZIP and open the program listed above.
 3. Choose an output folder and select **Check paper results**.
